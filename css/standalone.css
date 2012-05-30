@@ -79,25 +79,7 @@ section.help {
 		line-height: 1;
 		text-align: center;
 	}
-	
-		section.help h1:before {
-			content: 'ℹ';
-			display: inline-block;
-			min-width: 1em;
-			padding: .15em;
-			margin-right: .3em;
-			vertical-align: .2em;
-			background: hsl(30,20%,19%) url(../img/noise.png);
-			color: hsl(30,20%,30%);
-			text-align: center;
-			font-size: 60%;
-			line-height: 1;
-			font-style: normal;
-			border-radius: 50%;
-			box-shadow: 0 .1rem hsla(0,0%,100%,.3), 0 .1rem hsla(0,0%,0%,.3) inset;
-			text-shadow: 0 .1rem hsla(0,0%,0%,.3);
-		}
-	
+		
 	dfn {
 		display: inline-block;
 		cursor: help;
