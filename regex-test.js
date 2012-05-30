@@ -78,17 +78,13 @@ var _ = self.RegExpTester = function(container){
 			evt.stopPropagation();
 			evt.preventDefault();
 			
-			me[(evt.keyCode === 40? 'next' : 'prev') + 'Match']();
+			var method = (evt.keyCode === 40? 'next' : 'prev') +
+			             (evt.ctrlKey? 'Subpattern' : 'Match'); 
+			me[method]();
 		}
 		
 		if (evt.ctrlKey) {
-			if (evt.keyCode === 37 || evt.keyCode === 39) {
-				evt.stopPropagation();
-				evt.preventDefault();
-				
-				me[(evt.keyCode === 39? 'next' : 'prev') + 'Subpattern']();
-			}
-			else if (evt.keyCode === 73) { // I
+			if (evt.keyCode === 73) { // I
 				me.toggleFlag('i');
 			}
 			else if (evt.keyCode === 77) { // M
@@ -293,8 +289,14 @@ _.prototype = {
 			var match = this.matches[this.matches.index],
 			    subpattern = this.subpatterns[index];
 			
-			if(match) {
-				var offset = match.index + match.subpatterns[0].indexOf(subpattern);
+			if (match) {
+				var strIndex = match.subpatterns[0].indexOf(subpattern);
+				
+				if (strIndex === -1) {
+					strIndex = match.subpatterns.input.indexOf(subpattern, match.index) - 1;
+				}
+				
+				var offset = match.index + strIndex;
 				this.positionIndicator(this.submatchIndicator, offset, subpattern.length);
 				this.submatchIndicator.style.display = '';
 			}

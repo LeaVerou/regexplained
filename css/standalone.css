@@ -110,7 +110,7 @@ section.help {
 		min-width: 2em;
 		margin: 0;
 		border-radius: .25em;
-		background: rgba(0,0,0,.3);
+		background: rgba(0,0,0,.2);
 		text-align: center;
 		font: 55%/2 Consolas, Monaco, monospace;
 		box-shadow: 0 1px 2px rgba(0,0,0,.3) inset;

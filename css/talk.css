@@ -150,7 +150,7 @@ li.invalid.delayed.displayed {
 }
 
 .slide[data-type="Challenge"]:before {
-	content: 'Reminder: to participate, go to lea.verou.me/regexplained';
+	content: 'Reminder: to participate, go to leaverou.github.com/regexplained';
 	position: absolute;
 	top: 0; left: 0; right: 0;
 	padding: 0 1.3em .1em;
