@@ -1,0 +1,202 @@
+body {
+	font: 100% Futura, sans-serif;
+	text-shadow: 0 -.1em .2em black;
+}
+
+@media screen and (max-width: 1050px), screen and (max-height: 750px) {
+	body {
+		font-size: 90%;
+	}
+}
+
+h1, h2 {
+	font-size: 200%;
+	font-weight: normal;
+}
+
+h2 {
+	font: italic 160% Baskerville, serif;
+}
+
+ul {
+	padding: 0 0 0 1em;
+}
+
+	ul > li {
+		position: relative;
+		list-style: none;
+	}
+	
+	ul > li::before {
+		content: '✓';
+		position: absolute;
+		left: -.8em;
+		top: -.3em;
+		color: hsl(75, 70%, 60%);
+		font-size: 150%;
+	}
+	
+button {
+	padding: 0 .3em;
+	border: 1px solid rgba(0,0,0,.1);
+	border-radius: .3em;
+	background: hsl(75, 70%, 60%);
+	background-image: linear-gradient(hsla(75, 70%, 60%, 0), hsl(75, 70%, 35%));
+	background-origin: border-box;
+	box-shadow: 0 1px white inset, 0 .2em .25em -.1em black;
+	transition-property: box-shadow, background, border-width;
+	transition-duration: .3s;
+}
+
+button:active {
+	border: 0;
+	background-color: hsl(75, 70%, 40%);
+	box-shadow: 0 1px hsla(0,0%,100%,.3), 0 1px .3em .05em black inset;
+}
+
+.slide {
+	padding: 1em;
+}
+
+body > header.slide:target {
+	overflow: hidden;
+	text-align: center;
+}
+
+	@keyframes marquee {
+		to {
+			transform: translateX(-80%);
+		}
+	}
+
+	body > header.slide h1 {
+		color: hsl(30,20%,60%);
+		font-size: 500%;
+		white-space: nowrap;
+		animation: marquee 6s infinite alternate linear;
+	}
+	
+	body > header.slide h2 {
+		font: italic 160% Baskerville, serif;
+	}
+
+section > header.slide:target {
+	display: box;
+	box-align: center;
+	box-pack: center;
+	display: flexbox;
+	flex-align: center;
+	flex-pack: center;
+}
+
+	header.slide h1 {
+		font-size: 300%;
+	}
+
+	.slide > pre,
+	.slide li > pre {
+		padding: .3em .5em;
+		margin: 1em -.3em;
+		background: rgba(0,0,0,.2);
+		border-radius: .3em;
+		box-shadow: 1px 1px 6px rgba(0,0,0,.5) inset;
+	}
+	
+	.slide h2 + pre {
+		margin-top: 0;
+	}
+	
+	.slide:not(.image) h2 {
+		color: hsl(30,20%,19%);
+		text-shadow: 0 .1rem hsla(0,0%,100%,.3);
+	}
+	
+	.slide:not(.image) > hgroup > h2 {
+		margin-top: -.4em;
+	}
+
+	.image.slide .caption dd,
+	.image.slide .caption h2 {
+		font: italic 90% Baskerville, serif;
+	}
+	
+.attribution {
+	position: absolute;
+	bottom: 1em;
+	left: 0; right: 0;
+	color: hsl(75, 70%, 60%);
+}
+
+/* Syntax highlighting */
+
+.comment {
+	color: #807060;
+}
+
+.keyword {
+	font-weight: bold;
+}
+
+.property, .string, .attr-value {
+	color: hsl(75, 70%, 60%);
+}
+
+.selector, .keyword, .tag {
+	color: hsl(350, 40%, 70%);
+}
+
+.regex, .operator, .atrule, .attr-name {
+	color: hsl(40, 90%, 60%);
+}
+
+.number, .boolean {
+	color: #abc;
+}
+
+.punctuation {
+	opacity: .6;
+}
+
+/* Ribbon */
+[data-type].slide:not(.hide-ribbon):after {
+	background-color: #9ab;
+	color: #567;
+	font-weight: normal;
+	font-size: 60%;
+	line-height: 1.6;
+	text-shadow: 0 .05em .05em white;
+}
+
+/**
+ * Style scrollbars in Webkit
+ * Warning: nonstandard CSS ahead
+ */
+::-webkit-scrollbar {
+	width: 20px;
+	height: 20px;
+}
+
+section.page:not(.focus):not(:hover)::-webkit-scrollbar {
+	display: none;
+}
+
+::-webkit-scrollbar-track,
+::-webkit-scrollbar-thumb {
+	border-radius: 999px;
+	border: 5px solid transparent;
+}
+
+::-webkit-scrollbar-track {
+	box-shadow: 1px 1px 5px rgba(0,0,0,.2) inset;
+}
+
+::-webkit-scrollbar-thumb {
+	min-height: 20px;
+	background: url(/img/noise.png);
+	background-clip: content-box;
+	box-shadow: 0 0 0 5px hsla(30, 20%, 15%,.4) inset;
+}
+
+::-webkit-scrollbar-corner {
+	background: transparent;
+}
