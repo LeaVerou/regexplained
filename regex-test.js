@@ -128,20 +128,16 @@ else {
 	_.getCh = function(input) {
 		var parent = input.parentNode, dummy;
 		
-		if(!_.getCh.dummy) {
-			dummy = document.createElement('_');
-			
-			dummy.style.display = 'inline-block';
-		}
-		else {
-			dummy = _.getCh.dummy;
-		}
+		dummy = _.getCh.dummy || (_.getCh.dummy = document.createElement('_'));
+		
+		dummy.style.display = 'inline-block';
 		
 		if(dummy.parentNode !== parent) {
 			parent.appendChild(dummy);
 		}
 		
-		dummy.textContent = input.value;
+		// Replace spaces with characters so they don't get collapsed
+		dummy.textContent = input.value.replace(/ /g, 'a');
 		
 		var w = dummy.offsetWidth;
 		
@@ -214,7 +210,7 @@ _.prototype = {
 			return;
 		}
 		
-		var test = this.tester.value.replace(/\\n/g, '\n').replace(/\\r/g, '\r'),
+		var test = this.testStr = this.tester.value.replace(/\\n/g, '\n').replace(/\\r/g, '\r'),
 		    isMatch = pattern.test(test);
 		
 		this.tester.parentNode.parentNode.classList[isMatch? 'remove' : 'add']('invalid');
@@ -268,7 +264,10 @@ _.prototype = {
 			var match = this.matches[index];
 			
 			if(match) {
-				this.positionIndicator(this.matchIndicator, match.index, match.length);
+				var before = this.testStr.substr(0, match.index + 1),
+					lineBreaks = (before.match(/\n|\r/g) || []).length;
+
+				this.positionIndicator(this.matchIndicator, match.index + lineBreaks, match.length);
 				this.matchIndicator.style.display = ''; 
 				
 				this.subpatterns = match.subpatterns.slice() || []; // slice for cloning
@@ -297,7 +296,11 @@ _.prototype = {
 				}
 				
 				var offset = match.index + strIndex;
-				this.positionIndicator(this.submatchIndicator, offset, subpattern.length);
+				
+				var before = this.testStr.substr(0, offset + 1),
+					lineBreaks = (before.match(/\n|\r/g) || []).length;
+					
+				this.positionIndicator(this.submatchIndicator, offset + lineBreaks, subpattern.length);
 				this.submatchIndicator.style.display = '';
 			}
 			else {
