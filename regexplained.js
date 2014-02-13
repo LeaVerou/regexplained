@@ -31,11 +31,11 @@ $$('.regex-test.slide').forEach(function(slide){
 		send: function(q) {
 			window.twitterSearch = this;
 			
-			$u.script('http://search.twitter.com/search.json?' +
+			$u.script('http://api.twitter.com/1.1/search/tweets.json?' +
 				'callback=twitterSearch.callback' +
 				'&q=' + encodeURIComponent(this.q) +
 				'&since_id=' + _.maxId +
-				'&rpp=100' +
+				'&count=100' +
 				'&result_type=recent');
 		},
 		

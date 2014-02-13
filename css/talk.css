@@ -1,3 +1,171 @@
+@font-face {
+	font-family: LeaVerou;
+	src: url(../img/leaverou.otf);
+}
+
+#hi {
+	font-size: 200%;
+}
+	
+	#hi .delayed:not(.current):not(.displayed),
+	#csswg-announcement .delayed:not(.current):not(.displayed),
+	#contact.delayed:not(.current):not(.displayed) {
+		transform: translateY(-300%);
+	}
+	
+	#hi .displayed {
+		opacity: 1;
+	}
+	
+	#hi p:first-of-type {
+		margin-top: .1em;
+	}
+
+	#hi p {
+		xdisplay: inline-block;
+		margin: 0;
+		padding-top: .5em;
+		font: 220%/1 'Reenie Beanie', sans-serif;
+	}
+	
+	#hi div > p {
+		padding-top: 0;
+	}
+	
+	#hi > p {
+		font-size: 160%;
+	}
+	
+		/*#hi p img {
+			display: block;
+			height: 2.5em;
+			margin-top: -.3em;
+		}*/
+
+	#hi figure {
+		float: left;
+		margin: 1.5em 1.5em 0 1em;
+		max-width: 540px;
+		display: inline-block;
+		background: white;
+		padding: 15px;
+		box-shadow: 2px 2px 30px black;
+		transform: rotate(-2deg);
+	}
+	
+		#hi figure img {
+			max-width: 100%;
+		}
+		
+		#hi figure figcaption {
+			display: block;
+			padding-bottom: .1em;
+			text-align: center;
+			color: black;
+			text-shadow: none;
+			font: 300%/.7 'Reenie Beanie', cursive;
+			
+		}
+	
+		#hi figure img {
+			background: url(img/grass.svg), url(img/starburst.svg), linear-gradient(hsl(200, 84%, 85%), hsl(200, 84%, 90%));
+			background-position: 50% 200px, 0 -100px, 0 0;
+			background-repeat: repeat-x, no-repeat;
+			background-size: auto, 100% auto;
+		}
+	
+	#hi ul {
+		line-height: 1.7;
+		margin: 0;
+	}
+	
+	#hi li {
+		display: inline;
+	}
+	
+		#hi li:before {
+			content: none;
+		}
+		
+		#hi li a {
+			display: inline-block;
+			padding: .2em .3em .25em;
+			border-radius: .2em;
+			line-height: 1;
+			text-decoration: none;
+			color: hsl(75, 70%, 60%);
+			background: black;
+		}
+		
+		#hi li a:hover {
+			color: white;
+		}
+		
+	p#csswg {
+		
+	}
+	
+		#csswg strong {
+			display: block;
+			color: white;
+			font: bold 125% Futura, sans-serif;
+		}
+		
+	p#oreilly {
+		padding-top: .8em;
+	}
+	
+		#oreilly img {
+			width: 4.5em;
+		}
+		
+	#mit img {
+		width: 3em;
+	}
+
+.lea {
+	background: url(../img/lea.png) bottom left no-repeat,
+		 hsl(200, 30%, 15%) radial-gradient(10% 60%, hsl(200, 30%, 15%) 10%, black);
+}
+
+	.lea > h1 {
+		position: absolute;
+		max-width: 4em;
+		padding: 1em;
+		margin-left: .5em;
+		background: white;
+		color: hsl(200, 30%, 15%);
+		text-shadow: none;
+		font-size: 80%;
+		line-height: 1;
+		font-weight: normal;
+		text-align: center;
+		text-transform: uppercase;
+		outline: 2px dotted;
+		outline-offset: -.5em;
+	}
+	
+		.lea > h1 > .symbol {
+			font-family: LeaVerou;
+			font-size: 400%;
+		}
+		
+		.lea > h1 > .first-name {
+			font-size: 200%;
+		}
+
+	.lea > ul {
+		margin: -.5em 0 -.5em 260px;
+		font-size: 70%;
+		line-height: 1.5;
+	}
+	
+ul.links a:after {
+	content: ' ' attr(href);
+	font: italic 100% Baskerville;
+	opacity: .5;
+}
+
 .speech-bubble {
 	position: relative;
 	float: left;
@@ -112,7 +280,7 @@
 		}
 		
 .regex-test > .delayed-children > li:not(.current):not(.displayed) {
-	opacity: .1;
+	opacity: .05;
 }
 
 .regex-test ul > li:first-child:nth-last-child(n+4),
@@ -149,8 +317,8 @@ li.invalid.delayed.displayed {
 	font-size: 250%;
 }
 
-.slide[data-type="Challenge"]:before {
-	content: 'Reminder: to participate, go to leaverou.github.com/regexplained';
+.slide[data-type="Challenge"]:target::before {
+	content: 'Reminder: to participate, go to leaverou.github.io/regexplained';
 	position: absolute;
 	top: 0; left: 0; right: 0;
 	padding: 0 1.3em .1em;

@@ -103,12 +103,16 @@ var _ = self.RegExpTester = function(container){
 		me.test();
 	});
 	
-	if(container.classList.contains('slide')) {
+	if(this.embedded = container.classList.contains('slide')) {
 		addEventListener('hashchange', function(){
 			if(container.id === location.hash.slice(1)) {
 				$u.event.fire([me.input, me.tester], 'input');
 			}
 		});
+		
+		setTimeout(function(){
+			$u.event.fire(window, 'hashchange');
+		}, 0);
 	}
 	else {
 		$u.event.fire([this.input, this.tester], 'input');

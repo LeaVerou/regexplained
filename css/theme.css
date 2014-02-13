@@ -3,7 +3,7 @@ body {
 	text-shadow: 0 -.1em .2em black;
 }
 
-@media screen and (max-width: 1050px), screen and (max-height: 750px) {
+@media screen and (max-width: 1050px), screen and (max-height: 770px) {
 	body {
 		font-size: 90%;
 	}
@@ -157,6 +157,18 @@ section > header.slide:target {
 	opacity: .6;
 }
 
+.slide.next::before {
+	content: 'Next up: ' attr(data-title);
+	visibility: visible;
+	position: absolute;
+	bottom: .5rem;
+	left: 1rem;
+	font-size: 1.3rem;
+	color: hsl(30,20%,19%);
+	text-shadow: 0 .1rem hsla(0,0%,100%,.3);
+	
+}
+
 /* Ribbon */
 [data-type].slide:not(.hide-ribbon):after {
 	background-color: #9ab;
@@ -165,6 +177,12 @@ section > header.slide:target {
 	font-size: 60%;
 	line-height: 1.6;
 	text-shadow: 0 .05em .05em white;
+}
+
+::selection {
+	background: black;
+	color: white;
+	text-shadow: none;
 }
 
 /**
@@ -192,7 +210,7 @@ section.page:not(.focus):not(:hover)::-webkit-scrollbar {
 
 ::-webkit-scrollbar-thumb {
 	min-height: 20px;
-	background: url(/img/noise.png);
+	background: url(../img/noise.png);
 	background-clip: content-box;
 	box-shadow: 0 0 0 5px hsla(30, 20%, 15%,.4) inset;
 }
