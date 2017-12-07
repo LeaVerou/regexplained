@@ -4,7 +4,7 @@ body {
 	padding: .8em;
 	box-sizing: border-box;
 	font: 220% Futura, sans-serif;
-	text-shadow: 0 -.05em .1em black;
+	text-shadow: 0 -.05em .1em rgba(0,0,0,.6);
 }
 
 kbd {
@@ -130,3 +130,18 @@ section.help {
 		z-index: 1;
 	}
 }
+
+footer {
+	display: block;
+	margin-top: 2rem;
+	font-size: 50%;
+	color: hsl(75, 70%, 50%);
+}
+
+	footer .button {
+		margin-left: .5em;
+	}
+
+	footer a:not(.button):hover {
+		text-decoration: underline;
+	}

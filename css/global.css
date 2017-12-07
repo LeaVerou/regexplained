@@ -24,9 +24,16 @@ button,
 	background-image: url(../img/noise.png),
 			linear-gradient(hsla(75, 70%, 60%, 0), hsl(75, 70%, 35%));
 	background-origin: border-box;
-	box-shadow: 0 1px white inset, 0 .2em .25em -.1em black;
+	box-shadow: 0 1px white inset, 0 .2em .25em -.1em rgba(0,0,0,.5);
 	transition-property: box-shadow, background, border-width;
 	transition-duration: .3s;
+	text-shadow: 0 -0.05em 0.1em rgba(0,0,0,.3);
+	color: white;
+}
+
+button:hover,
+.button:hover {
+	background-color: hsl(75, 80%, 75%);
 }
 
 button:active,
