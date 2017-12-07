@@ -33,28 +33,37 @@ var _ = self.RegExpTester = function(container){
 
 	this.flagsContainer = $.create('span', this.flags);
 
-	$.contents(container, [{
-			tag: 'div',
-			properties: {
-				className: 'pattern'
+	$.create({
+		properties: {
+			className: 'tester' + (initialPattern.test(initialTest)? '' : ' invalid')
+		},
+		contents: [
+			'"',
+			{
+				tag: 'div',
+				contents: this.tester
 			},
-			contents: ['/', {
+			'"'
+		],
+		start: container
+	});
+	
+	$.create({
+		properties: {
+			className: 'pattern'
+		},
+		contents: [
+			'/',
+			{
 				tag: 'div',
 				contents: this.input
-			}, '/', this.flagsContainer]
-		}, {
-			tag: 'br'
-		}, {
-			tag: 'div',
-			properties: {
-				className: 'tester' + (initialPattern.test(initialTest)? '' : ' invalid')
 			},
-	    	contents: ['"', {
-	    		tag: 'div',
-	    		contents: this.tester
-	    	}, '"']
-		}
-	], 'start');
+			'/',
+			this.flagsContainer
+		],
+		start: container
+	});
+
 
 
 	this.matchIndicator = $.create('div', {

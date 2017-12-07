@@ -1,14 +1,10 @@
 body {
 	min-width: 820px;
-	min-height: 700px;
+	min-height: 100vh;
 	padding: .8em;
 	box-sizing: border-box;
 	font: 220% Futura, sans-serif;
 	text-shadow: 0 -.05em .1em black;
-}
-
-.regex-test h1 {
-	text-align: center;
 }
 
 kbd {
@@ -48,16 +44,19 @@ dfn:active kbd {
 }
 
 aside {
-	position: absolute;
-	bottom: 1em;
-	right: 1em;
-	white-space: nowrap;
+	display: flex;
+	align-items: center;
+	justify-content: center;
 }
 
+
+
 section.help {
+	position: relative;
 	display: inline-block;
-	max-width: 12.5em;
+	max-width: 12em;
 	padding: .3em;
+	margin: 2em .3em .3em;
 	text-align: left;
 	font-size: 90%;
 	line-height: 2;
@@ -68,18 +67,25 @@ section.help {
 	vertical-align: bottom;
 }
 
+@media (max-width: 900px) {
+	section.help {
+		font-size: 140%;
+	}
+}
+
 #cheatsheet {
 	line-height: 1.1;
+	display: flex;
+	flex-wrap: wrap;
 }
 
 	section.help h1 {
-		position: absolute;
-		top: -1.1em;
+		width: 100%;
+		margin: -1.35em 0 .3em;
 		font-size: 120%;
 		line-height: 1;
-		text-align: center;
 	}
-		
+
 	dfn {
 		display: inline-block;
 		cursor: help;
@@ -87,24 +93,40 @@ section.help {
 		outline: none;
 		white-space: nowrap;
 	}
-	
+
 	#cheatsheet dfn {
 		min-width: 2em;
-		margin: 0;
+		margin: .2em;
 		border-radius: .25em;
 		background: rgba(0,0,0,.2);
 		text-align: center;
 		font: 55%/2 Consolas, Monaco, monospace;
 		box-shadow: 0 1px 2px rgba(0,0,0,.3) inset;
 	}
-	
+
 	#cheatsheet dfn.long {
-		min-width: 4.5em;
+		min-width: 4.4em;
 	}
 
+@media (max-width: 1200px) {
+	aside {
+		flex-flow: column;
+	}
+
+	#cheatsheet {
+		margin-top: 3em;
+	}
+}
+
 .tweet.button {
-	position: absolute;
-	left: 1em;
-	bottom: 1em;
-	z-index: 1;
+	margin: 1em;
+}
+
+@media (min-width: 1200px) {
+	.tweet.button {
+		position: absolute;
+		left: 1em;
+		bottom: 1em;
+		z-index: 1;
+	}
 }
