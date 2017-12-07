@@ -3,126 +3,6 @@
 	src: url(../img/leaverou.otf);
 }
 
-#hi {
-	font-size: 200%;
-}
-	
-	#hi .delayed:not(.current):not(.displayed),
-	#csswg-announcement .delayed:not(.current):not(.displayed),
-	#contact.delayed:not(.current):not(.displayed) {
-		transform: translateY(-300%);
-	}
-	
-	#hi .displayed {
-		opacity: 1;
-	}
-	
-	#hi p:first-of-type {
-		margin-top: .1em;
-	}
-
-	#hi p {
-		xdisplay: inline-block;
-		margin: 0;
-		padding-top: .5em;
-		font: 220%/1 'Reenie Beanie', sans-serif;
-	}
-	
-	#hi div > p {
-		padding-top: 0;
-	}
-	
-	#hi > p {
-		font-size: 160%;
-	}
-	
-		/*#hi p img {
-			display: block;
-			height: 2.5em;
-			margin-top: -.3em;
-		}*/
-
-	#hi figure {
-		float: left;
-		margin: 1.5em 1.5em 0 1em;
-		max-width: 540px;
-		display: inline-block;
-		background: white;
-		padding: 15px;
-		box-shadow: 2px 2px 30px black;
-		transform: rotate(-2deg);
-	}
-	
-		#hi figure img {
-			max-width: 100%;
-		}
-		
-		#hi figure figcaption {
-			display: block;
-			padding-bottom: .1em;
-			text-align: center;
-			color: black;
-			text-shadow: none;
-			font: 300%/.7 'Reenie Beanie', cursive;
-			
-		}
-	
-		#hi figure img {
-			background: url(img/grass.svg), url(img/starburst.svg), linear-gradient(hsl(200, 84%, 85%), hsl(200, 84%, 90%));
-			background-position: 50% 200px, 0 -100px, 0 0;
-			background-repeat: repeat-x, no-repeat;
-			background-size: auto, 100% auto;
-		}
-	
-	#hi ul {
-		line-height: 1.7;
-		margin: 0;
-	}
-	
-	#hi li {
-		display: inline;
-	}
-	
-		#hi li:before {
-			content: none;
-		}
-		
-		#hi li a {
-			display: inline-block;
-			padding: .2em .3em .25em;
-			border-radius: .2em;
-			line-height: 1;
-			text-decoration: none;
-			color: hsl(75, 70%, 60%);
-			background: black;
-		}
-		
-		#hi li a:hover {
-			color: white;
-		}
-		
-	p#csswg {
-		
-	}
-	
-		#csswg strong {
-			display: block;
-			color: white;
-			font: bold 125% Futura, sans-serif;
-		}
-		
-	p#oreilly {
-		padding-top: .8em;
-	}
-	
-		#oreilly img {
-			width: 4.5em;
-		}
-		
-	#mit img {
-		width: 3em;
-	}
-
 .lea {
 	background: url(../img/lea.png) bottom left no-repeat,
 		 hsl(200, 30%, 15%) radial-gradient(10% 60%, hsl(200, 30%, 15%) 10%, black);
@@ -144,12 +24,12 @@
 		outline: 2px dotted;
 		outline-offset: -.5em;
 	}
-	
+
 		.lea > h1 > .symbol {
 			font-family: LeaVerou;
 			font-size: 400%;
 		}
-		
+
 		.lea > h1 > .first-name {
 			font-size: 200%;
 		}
@@ -159,7 +39,7 @@
 		font-size: 70%;
 		line-height: 1.5;
 	}
-	
+
 ul.links a:after {
 	content: ' ' attr(href);
 	font: italic 100% Baskerville;
@@ -208,7 +88,7 @@ ul.links a:after {
 		background: linear-gradient(to right bottom, transparent 60%, black 60%);
 		transform: scaleX(-1) rotate(45deg) skewX(60deg);
 	}
-	
+
 	.speech-bubble ~ .speech-bubble::after {
 		left: auto;
 		right: 1.5em;
@@ -220,25 +100,25 @@ ul.links a:after {
 }
 
 	.syntax-breakdown h1 > code {
-		
+
 	}
-	
+
 		.syntax-breakdown h1 > code > span {
 			position: relative;
 			padding: .1em;
 			opacity: 1;
 			border-radius: .5rem;
 		}
-		
+
 		.syntax-breakdown h1 > code > span.current {
 			background: #abc;
 			text-shadow: 0 -.1rem .1rem rgba(0,0,0,.5);
 		}
-		
+
 		.syntax-breakdown h1 > code > span.displayed {
 			opacity: 1;
 		}
-		
+
 		.syntax-breakdown h1 > code > span[title].current::before,
 		.syntax-breakdown h1 > code > span[title].current::after {
 			position: absolute;
@@ -247,13 +127,13 @@ ul.links a:after {
 			background: inherit;
 			font: italic 3rem Baskerville, serif;
 		}
-		
+
 		.syntax-breakdown h1 > code > span[title].current.after-middle::before,
 		.syntax-breakdown h1 > code > span[title].current.after-middle::after {
 			left: auto;
 			right: 0;
 		}
-		
+
 		.syntax-breakdown h1 > code > span[title].current::before {
 			content: '';
 			top: 0;
@@ -262,13 +142,13 @@ ul.links a:after {
 			margin-left: 50%;
 			margin-left: calc(50% - .2rem);
 		}
-		
+
 		.syntax-breakdown h1 > code > span[title].current.after-middle::before {
 			margin-left: 0;
 			margin-right: 50%;
 			margin-right: calc(50% - .2rem);
 		}
-		
+
 		.syntax-breakdown h1 > code > span[title].current::after {
 			content: attr(title);
 			min-width: 100%;
@@ -278,7 +158,7 @@ ul.links a:after {
 			color: #456;
 			text-shadow: 0 .1rem white;
 		}
-		
+
 .regex-test > .delayed-children > li:not(.current):not(.displayed) {
 	opacity: .05;
 }
@@ -287,7 +167,7 @@ ul.links a:after {
 .regex-test ul > li:first-child:nth-last-child(n+4) ~ li {
 	font-size: 80%;
 }
-		
+
 li.invalid.delayed {
 	opacity: 1;
 }
@@ -359,7 +239,7 @@ li.invalid.delayed.displayed {
 		left: 50%;
 		margin: 0 0 0 -1.2em;
 	}
-	
+
 	.timer.running > button {
 		display: none;
 	}
@@ -369,7 +249,7 @@ li.invalid.delayed.displayed {
 		height: 100%;
 		transform: rotate(-90deg);
 	}
-	
+
 		.timer > svg > circle {
 			fill: blue;
 			stroke: rgba(0,0,0,.5);
@@ -377,13 +257,13 @@ li.invalid.delayed.displayed {
 			fill: transparent;
 			stroke-width: 50%;
 		}
-		
+
 	#precise-impractical {
 		background: 0;
 	}
-	
+
 		#precise-impractical > code {
-			position: absolute; 
+			position: absolute;
 			left: 0; right: 0; top: 0;
 			padding: .4em;
 			color: hsl(25,20%,20%);
@@ -394,7 +274,7 @@ li.invalid.delayed.displayed {
 			word-wrap: break-word;
 			word-break: break-all;
 		}
-		
+
 .error {
 	color: #f44;
 	font: 75%/1.2 Monaco, Consolas, monospace;
@@ -416,7 +296,7 @@ li.invalid.delayed.displayed {
 		background: red;
 		border-radius: 50%;
 	}
-	
+
 details.tweets {
 	position: absolute;
 	right: 1em;
@@ -431,11 +311,11 @@ details.tweets {
 		cursor: pointer;
 		white-space: nowrap;
 	}
-	
+
 	details.tweets > summary::-webkit-details-marker {
 		display: none;
 	}
-	
+
 	details.tweets > div {
 		position: absolute;
 		bottom: 3em;
@@ -452,7 +332,7 @@ details.tweets {
 		font-size: 70%;
 		box-shadow: .1em .2em 1em rgba(0,0,0,.5);
 	}
-	
+
 	details.tweets[open]:before {
 		content: '';
 		position: absolute;
@@ -464,45 +344,45 @@ details.tweets {
 		background: hsl(30,20%,80%) url(../img/noise.png);
 		transform: rotate(45deg);
 	}
-	
+
 		details.tweets > div:empty:before {
 			content: 'No tweets to display';
 			font-style: italic;
 		}
-	
+
 		details.tweets > div > article {
 			padding: .3em 0;
 			overflow: hidden;
 			border-top: 1px solid white;
 			border-bottom: 1px solid rgba(0,0,0,.2);
 		}
-		
+
 		details.tweets > div > article:first-child {
 			border-top: 0;
 		}
-		
+
 		details.tweets > div > article:last-child {
 			border-bottom: 0;
 		}
-		
+
 			details.tweets > div > article > h1 {
 				font-size: 75%;
 			}
-				
+
 				details.tweets > div > article time {
 					color: hsl(30,20%,30%);
 					font: italic 100% Baskerville, 'Palatino Linotype', Palatino, Georgia, serif;
 				}
-			
+
 			details.tweets > div > article > p {
 				font-family: Consolas, Monaco, monospace;
 			}
-			
+
 			details.tweets > div > article > img {
 				float: left;
 				margin: .3em .5em 0 0;
 			}
-			
+
 #contact {
 	position: absolute;
 	top: 400px;
@@ -515,7 +395,7 @@ details.tweets {
 	font: italic 80%/.1 Baskerville;
 	text-shadow: none;
 	box-shadow: 0 .1em .3em black;
-	
+
 	transition: 1s cubic-bezier(.25,.1,.3,1.1);
 }
 
@@ -530,12 +410,12 @@ details.tweets {
 		margin: 0;
 		line-height: 1.4;
 	}
-	
+
 	#contact > p:nth-child(-n+3) {
 		margin-left: 190px;
 		font-size: 140%;
 	}
-	
+
 
 	#contact strong {
 		color: #f06;

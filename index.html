@@ -56,7 +56,10 @@
 
 <footer></footer>
 
-<script src="utopia.js"></script>
+<script src="bliss.shy.js"></script>
+<script>
+var $ = Bliss, $$ = Bliss.$;
+</script>
 <script src="regex-test.js"></script>
 <script>
 window.regexptester = new RegExpTester(document.body);
@@ -84,7 +87,7 @@ $$('#keyboard-shortcuts > dfn').forEach(function(dfn) {
 			}
 		});
 
-		$u.event.fire(document.body, 'keydown', e);
+		$.fire(document.body, 'keydown', e);
 	};
 });
 </script>

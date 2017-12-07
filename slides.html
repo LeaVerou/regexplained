@@ -8,6 +8,7 @@
 
 <link href="../csss/slideshow.css" rel="stylesheet" />
 <link href="../csss/reusable.css" rel="stylesheet" />
+<link href="../talks/shared/intro-outro.css" rel="stylesheet" />
 <link href="css/global.css" rel="stylesheet" />
 <link href="css/theme.css" rel="stylesheet" />
 <link href="css/talk.css" rel="stylesheet" />
@@ -24,60 +25,44 @@
 	<p class="attribution">By Lea Verou (@LeaVerou)</p>
 </header>
 
-<section class="inverse slide dont-resize darker" id="hi">
-	<figure class="delayed">
-		<img src="img/me-pirate.png" alt="Picture of me" title="Pirate illustration by Lorenzo Grandi http://www.lorenzograndi.it/" />
-		<figcaption>about:lea</figcaption>
-	</figure>
-	<div class="delayed">
-		<p>I make stuff</p>
-		<ul>
-			<li><a href="http://prismjs.com">prismjs.com</a></li>
-			<li><a href="http://dabblet.com">dabblet.com</a></li>
-			<li><a href="http://leaverou.github.io/prefixfree">-prefix-free</a></li>
-			<li><a href="http://css3test.com">css3test.com</a></li>
-		</ul>
-		<small>More: <a href="http://lea.verou.me/projects">lea.verou.me/projects</a></small>
-	</div>
-	<p class="delayed" id="csswg">
-		<strong>CSS WG</strong>
-		Invited Expert
-	</p>
-	<p class="delayed" id="oreilly">
-		<img src="img/oreilly.svg" alt="O’Reilly" style="display:block" />
-		author (2014)
-	</p>
-	<p id="mit" class="delayed">
-		<img src="img/mit.svg" alt="MIT" />
-	</p>
-</section>
 
-<!--<section class="lea slide dont-resize">
-	<h1>
-		<div class="symbol">☠</div>
-		<div class="first-name">Lea</div>
-		<div class="last-name">Verou</div>
-	</h1>
-	<ul class="links">
-		<li><a href="http://prismjs.com">Prism</a></li>
-		<li><a href="http://css3test.com">The CSS3 Test</a></li>
-		<li><a href="http://dabblet.com">Dabblet</a></li>
-		<li><a href="http://leaverou.github.io/prefixfree">-prefix-free</a></li>
-		<li><a href="http://leaverou.github.io/animatable">Animatable</a></li>
-		<li><a href="http://cubic-bezier.com">cubic-bezier.com</a></li>
-		<li><a href="http://leaverou.github.io/chainvas">Chainvas</a></li>
-		<li><a href="http://tweeplus.com">twee+</a></li>
-		<li><a href="http://css.coloratum.com">css.coloratum.com</a></li>
-		<li><a href="https://github.com/LeaVerou/StronglyTyped">StronglyTyped</a></li>
-		<li><a href="http://leaverou.github.io/Incrementable/">Incrementable</a></li>
-		<li><a href="http://lea.verou.me/polyfills/progress/">HTML5 &lt;progress> polyfill</a></li>
-		<li><a href="http://lea.verou.me/css3patterns/">CSS3 Patterns Gallery</a></li>
-		<li><a href="http://lea.verou.me/demos/cssgradientsplease/">CSS gradients please!</a></li>
-		<li><a href="http://leaverou.github.io/CSSS">CSSS</a></li>
-		<li><a href="http://lea.verou.me/demos/nth.html">Structural pseudo-class selector tester</a></li>
-		<li><a href="http://lea.verou.me/rgba.php/">rgba.php</a></li>
-	</ul>
-</section>-->
+
+<section id="introduction">
+	<section class="top-heavy slide dont-resize" id="projects">
+		<ul class="styled">
+			<li><a href="http://mavo.io/" style="background-image: url(../talks/shared/img/project-mavo.png)">Mavo</a></li>
+			<li><a href="http://prismjs.com" style="background-image: url(../talks/shared/img/project-prism.png)">PrismJS</a></li>
+			<li><a href="http://leaverou.github.io/prefixfree" style="background-image: url(../talks/shared/img/project-prefixfree.png)">-prefix-free</a></li>
+			<li><a href="http://blissfuljs.com" style="background-image: url(../talks/shared/img/project-bliss.png)">Bliss</a></li>
+			<li><a href="http://css3test.com" style="background-image: url(../talks/shared/img/project-css3test.png)">css3test.com</a></li>
+			<li><a href="http://leaverou.github.io/awesomplete/" style="background-image: url(../talks/shared/img/project-awesomplete.png)">Awesomplete</a></li>
+			<li><a href="http://cubic-bezier.com/" style="background-image: url(../talks/shared/img/project-cubicbezier.png)">cubic-bezier.com</a></li>
+			<li><a href="http://dabblet.com" style="background-image: url(../talks/shared/img/project-dabblet.png)">dabblet.com</a></li>
+			<li><a href="http://leaverou.github.io/contrast-ratio/" style="background-image: url(../talks/shared/img/project-contrastratio.png)">Contrast Ratio</a></li>
+		</ul>
+	</section>
+
+	<section class="top-heavy image slide" id="csswg" data-credits="Daniel Glazman" data-steps="1">
+		<h1 class="caption">
+			<!-- <img src="../talks/shared/img/w3c.svg" alt="W3C" class="inline"> -->
+			W3C CSS Working Group Invited Expert
+		</h1>
+		<svg viewBox="0 0 100 100" class="annotation">
+			<ellipse />
+		</svg>
+	</section>
+
+	<section class="inverse slide dont-resize darker hi" id="book">
+		<a href="http://shop.oreilly.com/product/0636920031123.do" class="delayed">
+			<img src="../talks/shared/img/book.png" alt="CSS Secrets by O’Reilly" style="display:block" />
+			★★★★★ on Amazon
+		</a>
+	</section>
+
+	<section class="top-heavy image slide" id="mit">
+		<h1><strong>2014&thinsp;–</strong> Haystack Group, MIT CSAIL</h1>
+	</section>
+</section>
 
 <section class="slide dont-resize" id="names">
 	<div class="speech-bubble">
@@ -99,7 +84,7 @@
 		<dd>A way to describe a set of strings</dd>
 	</dl>
 </section>
-<!--
+
 <section class="slide syntax-breakdown">
 	<h1><code style="font-size: 5.8vw;">/
 		<span title="Beginning of string">^</span>
@@ -112,12 +97,12 @@
 		<span title="Case insensitive" data-index="1">i</span>
 	</code></h1>
 </section>
--->
+
 <section class="slide">
 	<pre><code class="language-javascript">if(/^(th|td)$/i.test(element.nodeName))</code></pre>
 	<pre><code class="language-markup">&lt;input name="zip" pattern="\d{5}" /> </code></pre>
 	<pre><code class="language-javascript">'lea@verou.me'.match(/(\w+)@/)[1] // "lea"</code></pre>
-	<pre><code class="language-javascript">code.replace(/ {4}/g, '\t');</code></pre>
+	<pre><code class="language-javascript">code.replace(/ {4}/g, '\t'); // fix broken indentation</code></pre>
 	<p>Also: text editors, IDEs, command line tools (grep, etc), databases, and more</p>
 </section>
 
@@ -616,24 +601,26 @@ null</code></pre>
 	</div>
 </footer>
 
-<script src="utopia.js"></script>
+<script src="bliss.shy.js"></script>
 <script>
-$$('body.no-challenges .slide[data-type="Solution"]').forEach(function(slide) {
-	// Turn challenge answers into examples
-	var challengeSlide = slide.previousElementSibling;
-	var h1 = $('h1', slide);
-	var sibling = h1? h1.nextSibling : null;
-
-	$$('p', challengeSlide).forEach(function(p) {
-		slide.insertBefore(p, sibling);
-	});
-
-	challengeSlide.parentNode.removeChild(challengeSlide);
-	slide.setAttribute('data-type', 'Example');
-});
+// $$('body.no-challenges .slide[data-type="Solution"]').forEach(function(slide) {
+// 	// Turn challenge answers into examples
+// 	var challengeSlide = slide.previousElementSibling;
+// 	var h1 = $('h1', slide);
+// 	var sibling = h1? h1.nextSibling : null;
+//
+// 	$$('p', challengeSlide).forEach(function(p) {
+// 		slide.insertBefore(p, sibling);
+// 	});
+//
+// 	challengeSlide.parentNode.removeChild(challengeSlide);
+// 	slide.setAttribute('data-type', 'Example');
+// });
 </script>
 <script src="../csss/slideshow.js"></script>
-
+<script>
+var $ = Bliss, $$ = Bliss.$;
+</script>
 <script src="regex-test.js"></script>
 <script src="regexplained.js"></script>
 <script src="../prism.js/prism.js"></script>

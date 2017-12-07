@@ -26,8 +26,8 @@ ul {
 		position: relative;
 		list-style: none;
 	}
-	
-	ul > li::before {
+
+	ul:not(.styled) > li::before {
 		content: '✓';
 		position: absolute;
 		left: -.8em;
@@ -35,7 +35,7 @@ ul {
 		color: hsl(75, 70%, 60%);
 		font-size: 150%;
 	}
-	
+
 button {
 	padding: 0 .3em;
 	border: 1px solid rgba(0,0,0,.1);
@@ -75,7 +75,7 @@ body > header.slide:target {
 		white-space: nowrap;
 		animation: marquee 6s infinite alternate linear;
 	}
-	
+
 	body > header.slide h2 {
 		font: italic 160% Baskerville, serif;
 	}
@@ -101,16 +101,16 @@ section > header.slide:target {
 		border-radius: .3em;
 		box-shadow: 1px 1px 6px rgba(0,0,0,.5) inset;
 	}
-	
+
 	.slide h2 + pre {
 		margin-top: 0;
 	}
-	
+
 	.slide:not(.image) h2 {
 		color: hsl(30,20%,19%);
 		text-shadow: 0 .1rem hsla(0,0%,100%,.3);
 	}
-	
+
 	.slide:not(.image) > hgroup > h2 {
 		margin-top: -.4em;
 	}
@@ -119,7 +119,7 @@ section > header.slide:target {
 	.image.slide .caption h2 {
 		font: italic 90% Baskerville, serif;
 	}
-	
+
 .attribution {
 	position: absolute;
 	bottom: 1em;
@@ -166,7 +166,7 @@ section > header.slide:target {
 	font-size: 1.3rem;
 	color: hsl(30,20%,19%);
 	text-shadow: 0 .1rem hsla(0,0%,100%,.3);
-	
+
 }
 
 /* Ribbon */
