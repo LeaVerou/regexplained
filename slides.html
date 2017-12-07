@@ -1,0 +1,646 @@
+<!DOCTYPE html>
+<html>
+<head>
+
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
+<title>/Reg(exp){2}lained/</title>
+
+<link href="../csss/slideshow.css" rel="stylesheet" />
+<link href="../csss/reusable.css" rel="stylesheet" />
+<link href="css/global.css" rel="stylesheet" />
+<link href="css/theme.css" rel="stylesheet" />
+<link href="css/talk.css" rel="stylesheet" />
+<link href="css/regex-test.css" rel="stylesheet" />
+
+<script src="../csss/prefixfree.min.js"></script>
+<script src="vunits.js"></script>
+
+</head>
+<body class="no-challenges">
+
+<header id="intro" class="slide dont-resize">
+	<hgroup>
+		<h1>/Reg(exp){2}lained/</h1>
+		<h2>Demystifying regular expressions</h2>
+	</hgroup>
+	<p class="attribution">By Lea Verou (@LeaVerou)</p>
+</header>
+
+<section class="inverse slide dont-resize darker" id="hi">
+	<figure class="delayed">
+		<img src="img/me-pirate.png" alt="Picture of me" title="Pirate illustration by Lorenzo Grandi http://www.lorenzograndi.it/" />
+		<figcaption>about:lea</figcaption>
+	</figure>
+	<div class="delayed">
+		<p>I make stuff</p>
+		<ul>
+			<li><a href="http://prismjs.com">prismjs.com</a></li>
+			<li><a href="http://dabblet.com">dabblet.com</a></li>
+			<li><a href="http://leaverou.github.io/prefixfree">-prefix-free</a></li>
+			<li><a href="http://css3test.com">css3test.com</a></li>
+		</ul>
+		<small>More: <a href="http://lea.verou.me/projects">lea.verou.me/projects</a></small>
+	</div>
+	<p class="delayed" id="csswg">
+		<strong>CSS WG</strong>
+		Invited Expert
+	</p>
+	<p class="delayed" id="oreilly">
+		<img src="img/oreilly.svg" alt="O’Reilly" style="display:block" />
+		author (2014)
+	</p>
+	<p id="mit" class="delayed">
+		<img src="img/mit.svg" alt="MIT" />
+	</p>
+</section>
+
+<!--<section class="lea slide dont-resize">
+	<h1>
+		<div class="symbol">☠</div>
+		<div class="first-name">Lea</div>
+		<div class="last-name">Verou</div>
+	</h1>
+	<ul class="links">
+		<li><a href="http://prismjs.com">Prism</a></li>
+		<li><a href="http://css3test.com">The CSS3 Test</a></li>
+		<li><a href="http://dabblet.com">Dabblet</a></li>
+		<li><a href="http://leaverou.github.io/prefixfree">-prefix-free</a></li>
+		<li><a href="http://leaverou.github.io/animatable">Animatable</a></li>
+		<li><a href="http://cubic-bezier.com">cubic-bezier.com</a></li>
+		<li><a href="http://leaverou.github.io/chainvas">Chainvas</a></li>
+		<li><a href="http://tweeplus.com">twee+</a></li>
+		<li><a href="http://css.coloratum.com">css.coloratum.com</a></li>
+		<li><a href="https://github.com/LeaVerou/StronglyTyped">StronglyTyped</a></li>
+		<li><a href="http://leaverou.github.io/Incrementable/">Incrementable</a></li>
+		<li><a href="http://lea.verou.me/polyfills/progress/">HTML5 &lt;progress> polyfill</a></li>
+		<li><a href="http://lea.verou.me/css3patterns/">CSS3 Patterns Gallery</a></li>
+		<li><a href="http://lea.verou.me/demos/cssgradientsplease/">CSS gradients please!</a></li>
+		<li><a href="http://leaverou.github.io/CSSS">CSSS</a></li>
+		<li><a href="http://lea.verou.me/demos/nth.html">Structural pseudo-class selector tester</a></li>
+		<li><a href="http://lea.verou.me/rgba.php/">rgba.php</a></li>
+	</ul>
+</section>-->
+
+<section class="slide dont-resize" id="names">
+	<div class="speech-bubble">
+		<ul>
+			<li>“Regular expression”</li>
+			<li>“Regexp”</li>
+			<li>“Regex”</li>
+			<li class="delayed invalid">“ASCII puke”</li>
+		</ul>
+	</div>
+	<div class="delayed speech-bubble">
+		<p><pre>/^Reg(exp?|ular expression)$/i</pre></p>
+	</div>
+</section>
+
+<section class="image slide" style="background-image: url(img/strings.jpg)" data-source="http://www.flickr.com/photos/gargi/3010324017/">
+	<dl class="caption">
+		<dt>Regular expressions:</dt>
+		<dd>A way to describe a set of strings</dd>
+	</dl>
+</section>
+<!--
+<section class="slide syntax-breakdown">
+	<h1><code style="font-size: 5.8vw;">/
+		<span title="Beginning of string">^</span>
+		Reg(ex
+		<span title="Maybe one p" data-index="1">p?</span>
+		<span title="or" data-index="1">|</span>
+		ular expression)
+		<span title="End&nbsp;of string">$</span>
+		/
+		<span title="Case insensitive" data-index="1">i</span>
+	</code></h1>
+</section>
+-->
+<section class="slide">
+	<pre><code class="language-javascript">if(/^(th|td)$/i.test(element.nodeName))</code></pre>
+	<pre><code class="language-markup">&lt;input name="zip" pattern="\d{5}" /> </code></pre>
+	<pre><code class="language-javascript">'lea@verou.me'.match(/(\w+)@/)[1] // "lea"</code></pre>
+	<pre><code class="language-javascript">code.replace(/ {4}/g, '\t');</code></pre>
+	<p>Also: text editors, IDEs, command line tools (grep, etc), databases, and more</p>
+</section>
+
+<section>
+	<header class="slide">
+		<h1>Syntax</h1>
+	</header>
+	
+	<section class="slide syntax-breakdown">
+		<h1><code style="font-size: 7vw;">
+			<span title="Starts with a&nbsp;slash">/</span>
+			<span title="Pattern (what to match)" data-index="1">&amp;(lt|gt|amp);</span>
+			<span title="Ends with a&nbsp;slash">/</span>
+			<span title="Flags (combination of g, i, m)" data-index="1">g</span>
+		</code></h1>
+	</section>
+	
+	<section class="slide" id="methods">
+		<h1>RegExp aware methods</h1>
+		<ul>
+			<li><code class="language-javascript">RegExp#test(String)</code></li>
+			<li><code class="language-javascript">String#match(RegExp)</code></li>
+			<li><code class="language-javascript">String#replace(RegExp, String | Function)</code></li>
+			<li><code class="language-javascript">String#split(RegExp)</code></li>
+			<li><code class="language-javascript">RegExp#exec(String)</code></li>
+			<li><code class="language-javascript">String#search(RegExp)</code></li>
+		</ul>
+	</section>
+	
+	<section class="slide" data-src="index.html" data-title="Try stuff out at leaverou.github.io/regexplained"></section>
+	
+	<section class="regex-test slide" data-pattern="a">
+		<h1>What we learned</h1>
+		<ul class="delayed-children persistent">
+			<li>Regexes match anywhere, unless restricted</li>
+			<li>Matches cannot intersect</li>
+			<li>Case sensitive by default, use the <code>i</code> flag to change</li>
+		</ul>
+	</section>
+	
+	<section class="regex-test slide" data-pattern="1.5" data-test="1.5" title="The dot metacharacter">
+		<h1>What we learned</h1>
+		<ul class="delayed-children persistent">
+			<li>Dot (.) matches anything, except line breaks</li>
+			<li>Escape metacharacters with a backslash</li>
+		</ul>
+	</section>
+	
+	<section class="slide dont-resize" id="metacharacters">
+		<h1>The 12 metacharacters</h1>
+		<code>[</code>
+		<code>{</code>
+		<code>(</code>
+		<code>)</code>
+		<code>\</code>
+		<code>^</code>
+		<code>$</code>
+		<code>.</code>
+		<code>|</code>
+		<code>?</code>
+		<code>*</code>
+		<code>+</code>
+	</section>
+	
+	<section class="regex-test slide" data-pattern="aaaaargh" title="Quantifiers">
+		<h1>What we learned</h1>
+		<ul class="delayed-children persistent">
+			<li>{n} = n times</li>
+			<li>{n,} = at least n times</li>
+			<li>{m,n} = at least m times but no more than n times</li>
+		</ul>
+	</section>
+	
+	<section class="regex-test slide" data-pattern="bo{0,}" data-test="boooo" title="Quantifier shortcuts">
+		<h1>What we learned</h1>
+		<ul class="delayed-children persistent">
+			<li>* = {0,} , + = {1,} , ? = {0,1}</li>
+			<li>Careful of accidental zero length matches!</li>
+		</ul>
+	</section>
+	
+	<section class="regex-test slide" data-pattern="<.+>" data-test="<p>foo</p>" title="Greediness">
+		<h1>What we learned</h1>
+		<ul class="delayed-children persistent">
+			<li>Quantifiers are greedy</li>
+			<li>You can change that by adding a ? after them</li>
+		</ul>
+	</section>
+	
+	<section class="regex-test slide" data-pattern="[bdfglmprty]uck" title="Character classes">
+		<h1>What we learned</h1>
+		<ul class="delayed-children persistent">
+			<li>Brackets = set, range or a combination of both</li>
+			<li>Concatenate multiple ranges for a union</li>
+			<li>Most metacharacters don’t need escaping in <code>[]</code></li>
+		</ul>
+	</section>
+	
+	<section class="regex-test slide" data-pattern="[a-zA-Z0-9_]" title="Predefined character classes">
+		<h1>What we learned</h1>
+		<ul class="delayed-children persistent">
+			<li>
+				<code>\w</code> = <code>[a-zA-Z0-9_]</code>, 
+				<code>\d</code> = <code>[0-9]</code>,
+				<code>\s</code> ≈ <code>[\t\r\n ]</code></li>
+			<li>Combine to form more complex character classes</li>
+		</ul>
+	</section>
+	
+	<section class="slide" data-type="Example">
+		<h1>Counting words (roughly)</h1>
+		<pre><code class="language-javascript">function wordCount(text){
+	return text.match(/\w+/g).length;
+}</code></pre>
+		<pre><code class="language-javascript">function wordCount(text){
+	return text.split(/\s+/).length;
+}</code></pre>
+	</section>
+		
+	<!--<section class="slide" data-type="Challenge" data-duration="1">
+		<h1>Test challenge</h1>
+		<p>Examples:
+			This will be a list of strings you have to match
+		</p>
+	</section>-->
+	
+	<section class="slide" data-type="Challenge" data-duration="1">
+		<h1>Hex color</h1>
+		<p>Examples:
+			<code>#abc</code>, <code>#f00</code>, <code>#BADA55</code>, <code>#C0FFEE</code>
+		</p>
+	</section>
+	
+	<section class="slide" data-type="Solution">
+		<h1>Hex color</h1>
+		<pre><code class="language-javascript">/^#[a-f\d]{3,6}$/i.test(str); // Wrong!</code></pre>
+		<pre class="delayed persistent"><code class="language-javascript">/^#([a-f\d]{3}){1,2}$/i.test(str);</code></pre>
+	</section>
+	
+	<section class="regex-test slide" data-pattern="[\u0001-/:-@[-^`{-\uffff]" data-test="afz" title="Negated character classes">
+		<h1>What we learned</h1>
+		<ul class="delayed-children persistent">
+			<li><code>^</code> negates a character class</li>
+			<li>
+				<code>\W</code> = <code>[^\w]</code>,
+				<code>\D</code> = <code>[^\d]</code>,
+				<code>\S</code> = <code>[^\s]</code>
+			</li>
+			<li>Even the dot is a character class: <code>.</code> = <code>[^\r\n]</code>
+		</ul>
+	</section>
+	
+	<section class="slide" data-type="Example">
+		<h1>Strip HTML</h1>
+		<pre><code class="language-javascript">function stripHTML(str){
+    return str.replace(/&lt;.+?>/g, '');
+}</code></pre>
+		<pre class="delayed"><code class="language-javascript">function stripHTML(str){
+    return str.replace(/&lt;[^>]+>/g, '');
+}</code></pre>
+		<p>Warning: Will fail in edge cases</p>
+	</section>
+	
+	<section class="regex-test slide" data-pattern="w(ft|tf)" data-test="wtf" title="Grouping">
+		<h1>What we learned</h1>
+		<ul class="delayed-children persistent">
+			<li>| for alternatives</li>
+			<li>Group with parenthses (Useful for alternatives or quantifiers)</li>
+			<li>Parentheses have special meaning</li>
+		</ul>
+	</section>
+	
+	<section class="regex-test slide" data-pattern="(Java|ECMA)Script" data-test="JavaScript" title="Capturing">
+		<h1>What we learned</h1>
+		<ul class="delayed-children persistent">
+			<li>Parentheses form capturing groups</li>
+			<li>Add <code>?:</code> in the begninning to avoid this</li>
+		</ul>
+	</section>
+	
+	<section class="regex-test slide" data-pattern="^a" data-test="cat" title="Anchors">
+		<h1>What we learned</h1>
+		<ul class="delayed-children persistent">
+			<li><code>^</code> = beginning of string</li>
+			<li><code>$</code> = end of string</li>
+			<li>beginning/end of lines, with the <code>m</code> flag</li>
+		</ul>
+	</section>
+	
+	<section class="slide" data-type="Challenge" data-duration="2">
+		<h1>Number</h1>
+		<p>Without exponent or digit separators</p>
+		<p>Examples:
+			<code>-1</code>, <code>.05</code>, <code>+1000</code>, <code>3.1415926535</code>, <code>42.</code>
+		</p>
+	</section>
+	
+	<section class="slide" data-type="Solution">
+		<h1>Number</h1>
+		<pre><code class="language-javascript">/^[-+]?[\d.]+$/ // Too lax</code></pre>
+		<pre class="delayed persistent"><code class="language-javascript">/^[-+]?\d*\.?\d+$/ // False negatives: 5.</code></pre>
+		<pre class="delayed persistent"><code class="language-javascript">/^[-+]?\d*\.?\d*$/ // False positives: ., +., + etc</code></pre>
+		<pre class="delayed persistent"><code class="language-javascript">// Accurate, but is it worth it?
+/^[-+]?(\d*\.?\d+|\d+\.)$/</code></pre>
+	</section>
+	
+	<section class="slide" data-type="Example">
+		<h1>Trimming a string</h1>
+		<pre><code class="language-javascript">if (!String.prototype.trim) {
+    String.prototype.trim = function(){
+        return this.replace(/^\s+|\s+$/g, '');
+    }
+}</code></pre>
+	</section>
+	
+	<section class="regex-test slide" data-pattern="\b" title="Assertions">
+		<h1>What we learned</h1>
+		<ul class="delayed-children persistent">
+			<li><code>\b</code> = word boundary = between <code>\w</code> and <code>\W|^|$</code></li>
+			<li><code>\B</code> = non-word boundary = between <code>\w</code> and <code>\w</code> or <code>\W</code> and <code>\W</code></li>
+			<li>Assertions are zero width</li>
+		</ul>
+	</section>
+	
+	<section class="regex-test slide" data-pattern="a(b)" data-test="ab" title="Lookahead">
+		<h1>What we learned</h1>
+		<ul class="delayed-children persistent">
+			<li><code>(?=a)</code> = followed by a, which can be any regex</li>
+			<li><code>(?!a)</code> = NOT followed by a</li>
+			<li>No lookbehind in ECMAScript :(</li>
+		</ul>
+	</section>
+	
+	<section class="slide" data-type="Challenge" data-duration="2">
+		<h1>ISO 8601 Dates</h1>
+		<p>Just dates, no time or timezone information</p>
+		<p>Examples:
+			<code>2012-12-12</code>, <code>1986-06-13</code>
+		</p>
+	</section>
+	
+	<section class="slide" data-type="Solution">
+		<h1>ISO 8601 Dates</h1>
+		<pre><code class="language-javascript">/^\d{4}-\d{2}-\d{2}$/.test(str)</code></pre>
+		<pre class="delayed persistent"><code class="language-javascript">/^\d{4}-(0\d|1[0-2])-([0-2]\d|3[01])$/.test(s)</code></pre>
+		<p class="delayed">Can it be improved further?</p>
+	</section>
+	
+	<section class="slide">
+		<h1>Lookahead hacks</h1>
+		<h2>Intersection</h2>
+		<pre><code class="language-javascript">// A 6+ letter password with at least:
+// one number, one letter and one symbol
+/^(?=.*\d)(?=.*[a-z])(?=.*[\W_]).{6,}$/i</code></pre>
+		
+		<h2>Subtraction</h2>
+		<pre><code class="language-javascript">// Any number that’s NOT divisible by 50
+/\b(?!\d+[50]0)\d+\b/</code></pre>
+		
+		<h2>Negation</h2>
+		<pre><code class="language-javascript">// Anything that doesn’t contain "foo"
+/^(?!.*foo).+$/</code></pre>
+	</section>
+	
+	<section class="regex-test slide" data-pattern="('|&quot;).+?('|&quot;)" title="Backreferences">
+		<h1>What we learned</h1>
+		<ul class="delayed-children persistent">
+			<li><code>\N</code> = Nth backreference</li>
+		</ul>
+	</section>
+	
+	<section class="slide" data-type="Challenge" data-duration="2">
+		<h1>Strings</h1>
+		<p>Examples:
+			<code>"foo"</code>, <code>'bar'</code>, <code>'He said "hi"'</code>, <code>"He 'said' \"hi\""</code>, <code>""</code>, <code>'\\'</code>
+		</p>
+	</section>
+	
+	<section class="regex-test slide" data-type="Solution"
+		data-pattern="(&quot;|')(\\?.)*?\1" 
+		data-test='"He &apos;said&apos; \"hi\"!" "another string"'>
+	</section>
+</section>
+
+<section>
+	<header class="slide" id="best-practices">
+		<h1>Best Practices</h1>
+	</header>
+	
+	<section class="image slide" id="precise-impractical" data-source="regular-expressions.info/email.html">
+		<code>(?:[a-z0-9!#$%&amp;'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&amp;'*+/=?^_`{|}~-]+)*|"(?:[\x01-\x08\x0b\x0c\x0e-\x1f\x21\x23-\x5b\x5d-\x7f]|\\[\x01-\x09\x0b\x0c\x0e-\x7f])*")@(?:(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?|\[(?:(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.){3}(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?|[a-z0-9-]*[a-z0-9]:(?:[\x01-\x08\x0b\x0c\x0e-\x1f\x21-\x5a\x53-\x7f]|\\[\x01-\x09\x0b\x0c\x0e-\x7f])+)\])</code>
+		<h1 class="caption">Precision vs practicality</h1>
+	</section>
+	
+	<section class="top-heavy image slide" style="background-image: url(img/pregnancy-test.jpg);" data-source="http://www.flickr.com/photos/mandaloo/4369363690/">
+		<h1>False positives vs false negatives</h1>
+	</section>
+	
+	<section class="image slide" style="background: hsl(75, 50%, 30%);">
+		<hgroup class="caption">
+			<h1>Keep it simple</h1>
+			<h2>Even if it means not using regexes at all</h2>
+		</hgroup>
+	</section>
+	
+	<section class="slide">
+		<h1>For performance</h1>
+		<ul>
+			<li>Avoid greedy quantifiers</li>
+			<li>Don’t forget anchors (<code>^</code> and <code>$</code>)</li>
+			<li>Be as specific as possible</li>
+			<li>Prefer non-capturing groups <code>(?:)</code></li>
+			<li>Minimize backtracking</li>
+		</ul>
+	</section>
+</section>
+
+<section>
+	<header class="slide" id="js-regexp-api">
+		<h1>JS RegExp API</h1>
+	</header>
+	
+	<section class="slide">
+		<h1>RegExp instances</h1>
+		<pre><code class="language-javascript">var literal = /^\$\d+/g,
+    // You don’t need the new operator
+    dynamic = RegExp('^\\$\\d+', 'g');</code></pre>
+		<ul class="delayed">
+			<li>Literals are simpler, faster, more concise</li>
+			<li>Only use the constructor when you really have to!</li>
+		</ul>	
+	</section>
+	
+	<section class="slide">
+		<h1>RegExp properties for flags</h1>
+		<ul>
+			<li>
+				<code>RegExp#global</code>
+			</li>
+			<li>
+				<code>RegExp#multiline</code>
+			</li>
+			<li>
+				<code>RegExp#ignoreCase</code>
+			</li>
+		</ul>	
+		
+		<pre><code class="language-javascript">>>> /a/g.global; // true
+>>> /a/.global; // false
+>>> /a/m.multiline; // true
+>>> /a/gi.multiline; // false
+>>> /a/i.ignoreCase; // true</code></pre>
+	</section>
+	
+	<section class="slide">
+		<h1>Other RegExp properties</h1>
+		<ul>
+			<li>
+				<code>RegExp#source</code>
+				<pre><code class="language-javascript">console.log(/a/i.source) // "a"</code></pre>
+			</li>
+			<li><code>RegExp#lastIndex</code></li>
+		</ul>
+	</section>
+	
+	<section class="slide" data-import="methods"></section>
+	
+	<section class="slide">
+		<h1><code>RegExp#test</code></h1>
+		<pre><code class="language-javascript">/a/.test('ab'); // returns true</code></pre>
+		<ul>
+			<li>Faster than most of the others</li>
+		</ul>
+	</section>
+	
+	<section class="slide">
+		<h1><code>RegExp#exec</code></h1>
+		<pre><code class="language-javascript">/a(b)/.exec('abba'); // ["ab", "b"]</code></pre>
+		<pre class="delayed"><code class="language-javascript">var reg = /a(b)/g, bar = 'abba', matches = [], m;
+while (m = reg.exec(bar))
+  matches.push({
+    index: m.index, // reg.lastIndex-m[0].length+1
+    length: m[0].length,
+    groups: m
+  });</code></pre>
+	</section>
+	
+	
+	<section class="slide">
+		<h1><code>RegExp#exec</code></h1>
+		<pre><code class="language-javascript">>>> /a(bc)/.exec('abcba')[1];
+"bc"</code></pre>
+		<pre><code class="language-javascript">>>> /a(bc)/.exec('abba')[1];</code>
+<code class="error">TypeError: Cannot read property '1' of null</code></pre>
+		<div class="delayed">
+			<p>Handy trick by James Padolsey:</p>
+			<pre><code class="language-javascript">>>> (/regex/.exec('string') || [,''])[1];</code></pre>
+		</div>
+	</section>
+		
+	<section class="slide">
+		<h1><code>String#match</code></h1>
+		<pre><code class="language-javascript">>>> 'abcdef'.match(/(\w){3}/);
+["abc", "c"] // Same as /(\w){3}/.exec('abcdef')</code></pre>
+		<pre><code class="language-javascript">>>> 'abcdef'.match(/(\w){3}/g);
+["abc", "def"]</code></pre>
+		<pre><code class="language-javascript">>>> 'ab'.match(/(\w){3}/g);
+null</code></pre>
+	</section>
+	
+	<section class="slide">
+		<h1><code>String#replace</code></h1>
+		<pre><code class="language-javascript">>>> 'blabla'.replace('b', ''); // "labla"</code></pre>
+		<pre class="delayed persistent"><code class="language-javascript">>>> 'blabla'.replace(/b/g, ''); // "lala"</code></pre>
+		<pre class="delayed persistent"><code class="language-javascript">>>> 'blabla'.replace(/(\w)/g, '$1$1'); // "bbllaabbllaa"</code></pre>
+		<pre class="delayed persistent"><code class="language-javascript">>>> 'border-radius'.replace(/-(\w)/g, function($0,$1){
+	return $1.toUpperCase();
+}); // "borderRadius"</code></pre>
+	</section>
+	
+	<section class="slide">
+		<h1><code>String#split</code></h1>
+		<pre><code class="language-javascript">'Lea wants a $20K Mini.'.split(/\s+/).length; // 5</code></pre>
+		
+		<h1><code>String#search</code></h1>
+		<pre><code class="language-javascript">'Lea wants a $20K Mini.'.search(/\s+/); // 3</code></pre>
+		<ul class="delayed">
+			<li>Like a regex-aware <code>String#indexOf</code>!</li>
+		</ul>
+	</section>
+</section>
+
+<section>
+	<header class="slide" id="tools">
+		<h1>Tools</h1>
+	</header>
+	
+	<section class="slide">
+		<hgroup>
+			<h1>XRegExp</h1>
+			<h2>By Steven Levithan</h2>
+		</hgroup>
+		<p>RegExp wrapper that adds awesomeness like:</p>
+		<ul>
+			<li>Comments in regexes</li>
+			<li>Flag to turn off automatic capturing</li>
+			<li>Flag to ignore whitespace</li>
+			<li>Named capturing groups</li>
+			<li>Unicode-aware predefined classes</li>
+			<li>Smooths out browser bugs</li>
+			<li>Plugins for even more awesomeness</li>
+		</ul>
+	</section>
+	
+	<section class="slide" data-src="http://xregexp.com/"></section>
+	
+	<section class="slide">
+		<hgroup>
+			<h1>Regexpal</h1>
+			<h2>By Steven Levithan</h2>
+		</hgroup>
+		<p>Simple but powerful regexp tester</p>
+		<ul>
+			<li>Highlights regex syntax and matches as you type</li>
+			<li>Includes a quick reference for regex syntax</li>
+			<li>Knows about syntax that doesn’t work correctly in some browsers, and marks it as an error</li>
+			<li>Pure JavaScript, so you can save it and use offline</li>
+		</ul>
+	</section>
+	
+	<section class="slide" data-src="http://regexpal.com/"></section>
+	
+	<section class="slide" data-src="http://www.regexbuddy.com/"></section>
+	
+	<section class="slide">
+		<h1>Resources</h1>
+		<h2>Online:</h2>
+		<ul style="word-break: break-all;">
+			<li><a href="http://www.regular-expressions.info">regular-expressions.info</a></li>
+			<li><a href="http://blog.stevenlevithan.com/">blog.stevenlevithan.com</a>
+			<li><a href="https://developer.mozilla.org/en/JavaScript/Guide/Regular_Expressions">developer.mozilla.org/en/JavaScript/Guide/Regular_Expressions</a></li>
+		</ul>
+		<h2>Books:</h2>
+		<ul>
+			<li>Regular Expressions Cookbook - Jan Goyvaerts &amp; Steven Levithan</li>
+			<li>Mastering Regular Expressions - Jeffrey E.F. Friedl</li>
+		</ul>
+	</section>
+</section>
+
+<footer class="top-heavy image slide" id="thanks" style="background-image:url(img/thankyou.jpg)" data-source="flickr.com/photos/darwinbell/2602728681/">
+	<div id="contact" class="delayed">
+		<p>lea<strong>.</strong>verou<strong>.me</strong></p>
+		<p>lea<strong>@</strong>verou<strong>.me</strong></p>
+		<p><strong>@</strong>leaverou</p>
+	</div>
+</footer>
+
+<script src="utopia.js"></script>
+<script>
+$$('body.no-challenges .slide[data-type="Solution"]').forEach(function(slide) {
+	// Turn challenge answers into examples
+	var challengeSlide = slide.previousElementSibling;
+	var h1 = $('h1', slide);
+	var sibling = h1? h1.nextSibling : null;
+	
+	$$('p', challengeSlide).forEach(function(p) {
+		slide.insertBefore(p, sibling);
+	});
+	
+	challengeSlide.parentNode.removeChild(challengeSlide);
+	slide.setAttribute('data-type', 'Example');
+});
+</script>
+<script src="../csss/slideshow.js"></script>
+
+<script src="regex-test.js"></script>
+<script src="regexplained.js"></script>
+<script src="../prism.js/prism.js"></script>
+<script>var slideshow = new SlideShow();</script>
+	
+</body>
+</html>
