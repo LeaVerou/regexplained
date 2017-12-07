@@ -8,9 +8,6 @@
 <link rel="stylesheet" href="css/standalone.css" />
 <link rel="stylesheet" href="css/regex-test.css" />
 
-<script src="../csss/prefixfree.min.js"></script>
-<!--<script src="vunits.js"></script>-->
-
 </head>
 <body data-pattern="a(b)" data-test="aabb">
 
@@ -41,12 +38,12 @@
 		<dfn title="Negative lookahead" class="long">(?!…)</dfn>
 		<dfn title="Nth backreference">\N</dfn>
 	</section>
-	
+
 	<section class="help" id="keyboard-shortcuts">
 		<h1>Keyboard shortcuts</h1>
-		
-		<dfn title="Next match"><kbd data-keycode="40">↓</kbd></dfn>	
-		
+
+		<dfn title="Next match"><kbd data-keycode="40">↓</kbd></dfn>
+
 		<dfn title="Next subpattern"><kbd data-ctrlkey>⌃</kbd><kbd data-keycode="40">↓</kbd></dfn>
 		<dfn title="Previous subpattern"><kbd data-ctrlkey>⌃</kbd><kbd data-keycode="38">↑</kbd></dfn>
 		<!--<dfn title="Global flag"><kbd>⌃</kbd><kbd>G</kbd></dfn>-->
@@ -72,12 +69,12 @@ tweetButton.onclick = tweetButton.onmouseover = function() {
 
 $$('#keyboard-shortcuts > dfn').forEach(function(dfn) {
 	var keys = $$('kbd[data-keycode], kbd[data-ctrlkey]', dfn);
-	
+
 	dfn.setAttribute('tabindex', '0');
-	
+
 	dfn.onclick = function() {
 		var e = {};
-		
+
 		keys.forEach(function(kbd) {
 			if (kbd.hasAttribute('data-keycode')) {
 				e.keyCode = +kbd.getAttribute('data-keycode');

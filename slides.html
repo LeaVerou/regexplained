@@ -13,9 +13,6 @@
 <link href="css/talk.css" rel="stylesheet" />
 <link href="css/regex-test.css" rel="stylesheet" />
 
-<script src="../csss/prefixfree.min.js"></script>
-<script src="vunits.js"></script>
-
 </head>
 <body class="no-challenges">
 
@@ -128,7 +125,7 @@
 	<header class="slide">
 		<h1>Syntax</h1>
 	</header>
-	
+
 	<section class="slide syntax-breakdown">
 		<h1><code style="font-size: 7vw;">
 			<span title="Starts with a&nbsp;slash">/</span>
@@ -137,7 +134,7 @@
 			<span title="Flags (combination of g, i, m)" data-index="1">g</span>
 		</code></h1>
 	</section>
-	
+
 	<section class="slide" id="methods">
 		<h1>RegExp aware methods</h1>
 		<ul>
@@ -149,9 +146,9 @@
 			<li><code class="language-javascript">String#search(RegExp)</code></li>
 		</ul>
 	</section>
-	
+
 	<section class="slide" data-src="index.html" data-title="Try stuff out at leaverou.github.io/regexplained"></section>
-	
+
 	<section class="regex-test slide" data-pattern="a">
 		<h1>What we learned</h1>
 		<ul class="delayed-children persistent">
@@ -160,7 +157,7 @@
 			<li>Case sensitive by default, use the <code>i</code> flag to change</li>
 		</ul>
 	</section>
-	
+
 	<section class="regex-test slide" data-pattern="1.5" data-test="1.5" title="The dot metacharacter">
 		<h1>What we learned</h1>
 		<ul class="delayed-children persistent">
@@ -168,7 +165,7 @@
 			<li>Escape metacharacters with a backslash</li>
 		</ul>
 	</section>
-	
+
 	<section class="slide dont-resize" id="metacharacters">
 		<h1>The 12 metacharacters</h1>
 		<code>[</code>
@@ -184,7 +181,7 @@
 		<code>*</code>
 		<code>+</code>
 	</section>
-	
+
 	<section class="regex-test slide" data-pattern="aaaaargh" title="Quantifiers">
 		<h1>What we learned</h1>
 		<ul class="delayed-children persistent">
@@ -193,7 +190,7 @@
 			<li>{m,n} = at least m times but no more than n times</li>
 		</ul>
 	</section>
-	
+
 	<section class="regex-test slide" data-pattern="bo{0,}" data-test="boooo" title="Quantifier shortcuts">
 		<h1>What we learned</h1>
 		<ul class="delayed-children persistent">
@@ -201,7 +198,7 @@
 			<li>Careful of accidental zero length matches!</li>
 		</ul>
 	</section>
-	
+
 	<section class="regex-test slide" data-pattern="<.+>" data-test="<p>foo</p>" title="Greediness">
 		<h1>What we learned</h1>
 		<ul class="delayed-children persistent">
@@ -209,7 +206,7 @@
 			<li>You can change that by adding a ? after them</li>
 		</ul>
 	</section>
-	
+
 	<section class="regex-test slide" data-pattern="[bdfglmprty]uck" title="Character classes">
 		<h1>What we learned</h1>
 		<ul class="delayed-children persistent">
@@ -218,18 +215,18 @@
 			<li>Most metacharacters don’t need escaping in <code>[]</code></li>
 		</ul>
 	</section>
-	
+
 	<section class="regex-test slide" data-pattern="[a-zA-Z0-9_]" title="Predefined character classes">
 		<h1>What we learned</h1>
 		<ul class="delayed-children persistent">
 			<li>
-				<code>\w</code> = <code>[a-zA-Z0-9_]</code>, 
+				<code>\w</code> = <code>[a-zA-Z0-9_]</code>,
 				<code>\d</code> = <code>[0-9]</code>,
 				<code>\s</code> ≈ <code>[\t\r\n ]</code></li>
 			<li>Combine to form more complex character classes</li>
 		</ul>
 	</section>
-	
+
 	<section class="slide" data-type="Example">
 		<h1>Counting words (roughly)</h1>
 		<pre><code class="language-javascript">function wordCount(text){
@@ -239,27 +236,27 @@
 	return text.split(/\s+/).length;
 }</code></pre>
 	</section>
-		
+
 	<!--<section class="slide" data-type="Challenge" data-duration="1">
 		<h1>Test challenge</h1>
 		<p>Examples:
 			This will be a list of strings you have to match
 		</p>
 	</section>-->
-	
+
 	<section class="slide" data-type="Challenge" data-duration="1">
 		<h1>Hex color</h1>
 		<p>Examples:
 			<code>#abc</code>, <code>#f00</code>, <code>#BADA55</code>, <code>#C0FFEE</code>
 		</p>
 	</section>
-	
+
 	<section class="slide" data-type="Solution">
 		<h1>Hex color</h1>
 		<pre><code class="language-javascript">/^#[a-f\d]{3,6}$/i.test(str); // Wrong!</code></pre>
 		<pre class="delayed persistent"><code class="language-javascript">/^#([a-f\d]{3}){1,2}$/i.test(str);</code></pre>
 	</section>
-	
+
 	<section class="regex-test slide" data-pattern="[\u0001-/:-@[-^`{-\uffff]" data-test="afz" title="Negated character classes">
 		<h1>What we learned</h1>
 		<ul class="delayed-children persistent">
@@ -272,7 +269,7 @@
 			<li>Even the dot is a character class: <code>.</code> = <code>[^\r\n]</code>
 		</ul>
 	</section>
-	
+
 	<section class="slide" data-type="Example">
 		<h1>Strip HTML</h1>
 		<pre><code class="language-javascript">function stripHTML(str){
@@ -283,7 +280,7 @@
 }</code></pre>
 		<p>Warning: Will fail in edge cases</p>
 	</section>
-	
+
 	<section class="regex-test slide" data-pattern="w(ft|tf)" data-test="wtf" title="Grouping">
 		<h1>What we learned</h1>
 		<ul class="delayed-children persistent">
@@ -292,7 +289,7 @@
 			<li>Parentheses have special meaning</li>
 		</ul>
 	</section>
-	
+
 	<section class="regex-test slide" data-pattern="(Java|ECMA)Script" data-test="JavaScript" title="Capturing">
 		<h1>What we learned</h1>
 		<ul class="delayed-children persistent">
@@ -300,7 +297,7 @@
 			<li>Add <code>?:</code> in the begninning to avoid this</li>
 		</ul>
 	</section>
-	
+
 	<section class="regex-test slide" data-pattern="^a" data-test="cat" title="Anchors">
 		<h1>What we learned</h1>
 		<ul class="delayed-children persistent">
@@ -309,7 +306,7 @@
 			<li>beginning/end of lines, with the <code>m</code> flag</li>
 		</ul>
 	</section>
-	
+
 	<section class="slide" data-type="Challenge" data-duration="2">
 		<h1>Number</h1>
 		<p>Without exponent or digit separators</p>
@@ -317,7 +314,7 @@
 			<code>-1</code>, <code>.05</code>, <code>+1000</code>, <code>3.1415926535</code>, <code>42.</code>
 		</p>
 	</section>
-	
+
 	<section class="slide" data-type="Solution">
 		<h1>Number</h1>
 		<pre><code class="language-javascript">/^[-+]?[\d.]+$/ // Too lax</code></pre>
@@ -326,7 +323,7 @@
 		<pre class="delayed persistent"><code class="language-javascript">// Accurate, but is it worth it?
 /^[-+]?(\d*\.?\d+|\d+\.)$/</code></pre>
 	</section>
-	
+
 	<section class="slide" data-type="Example">
 		<h1>Trimming a string</h1>
 		<pre><code class="language-javascript">if (!String.prototype.trim) {
@@ -335,7 +332,7 @@
     }
 }</code></pre>
 	</section>
-	
+
 	<section class="regex-test slide" data-pattern="\b" title="Assertions">
 		<h1>What we learned</h1>
 		<ul class="delayed-children persistent">
@@ -344,7 +341,7 @@
 			<li>Assertions are zero width</li>
 		</ul>
 	</section>
-	
+
 	<section class="regex-test slide" data-pattern="a(b)" data-test="ab" title="Lookahead">
 		<h1>What we learned</h1>
 		<ul class="delayed-children persistent">
@@ -353,7 +350,7 @@
 			<li>No lookbehind in ECMAScript :(</li>
 		</ul>
 	</section>
-	
+
 	<section class="slide" data-type="Challenge" data-duration="2">
 		<h1>ISO 8601 Dates</h1>
 		<p>Just dates, no time or timezone information</p>
@@ -361,46 +358,46 @@
 			<code>2012-12-12</code>, <code>1986-06-13</code>
 		</p>
 	</section>
-	
+
 	<section class="slide" data-type="Solution">
 		<h1>ISO 8601 Dates</h1>
 		<pre><code class="language-javascript">/^\d{4}-\d{2}-\d{2}$/.test(str)</code></pre>
 		<pre class="delayed persistent"><code class="language-javascript">/^\d{4}-(0\d|1[0-2])-([0-2]\d|3[01])$/.test(s)</code></pre>
 		<p class="delayed">Can it be improved further?</p>
 	</section>
-	
+
 	<section class="slide">
 		<h1>Lookahead hacks</h1>
 		<h2>Intersection</h2>
 		<pre><code class="language-javascript">// A 6+ letter password with at least:
 // one number, one letter and one symbol
 /^(?=.*\d)(?=.*[a-z])(?=.*[\W_]).{6,}$/i</code></pre>
-		
+
 		<h2>Subtraction</h2>
 		<pre><code class="language-javascript">// Any number that’s NOT divisible by 50
 /\b(?!\d+[50]0)\d+\b/</code></pre>
-		
+
 		<h2>Negation</h2>
 		<pre><code class="language-javascript">// Anything that doesn’t contain "foo"
 /^(?!.*foo).+$/</code></pre>
 	</section>
-	
+
 	<section class="regex-test slide" data-pattern="('|&quot;).+?('|&quot;)" title="Backreferences">
 		<h1>What we learned</h1>
 		<ul class="delayed-children persistent">
 			<li><code>\N</code> = Nth backreference</li>
 		</ul>
 	</section>
-	
+
 	<section class="slide" data-type="Challenge" data-duration="2">
 		<h1>Strings</h1>
 		<p>Examples:
 			<code>"foo"</code>, <code>'bar'</code>, <code>'He said "hi"'</code>, <code>"He 'said' \"hi\""</code>, <code>""</code>, <code>'\\'</code>
 		</p>
 	</section>
-	
+
 	<section class="regex-test slide" data-type="Solution"
-		data-pattern="(&quot;|')(\\?.)*?\1" 
+		data-pattern="(&quot;|')(\\?.)*?\1"
 		data-test='"He &apos;said&apos; \"hi\"!" "another string"'>
 	</section>
 </section>
@@ -409,23 +406,23 @@
 	<header class="slide" id="best-practices">
 		<h1>Best Practices</h1>
 	</header>
-	
+
 	<section class="image slide" id="precise-impractical" data-source="regular-expressions.info/email.html">
 		<code>(?:[a-z0-9!#$%&amp;'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&amp;'*+/=?^_`{|}~-]+)*|"(?:[\x01-\x08\x0b\x0c\x0e-\x1f\x21\x23-\x5b\x5d-\x7f]|\\[\x01-\x09\x0b\x0c\x0e-\x7f])*")@(?:(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?|\[(?:(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.){3}(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?|[a-z0-9-]*[a-z0-9]:(?:[\x01-\x08\x0b\x0c\x0e-\x1f\x21-\x5a\x53-\x7f]|\\[\x01-\x09\x0b\x0c\x0e-\x7f])+)\])</code>
 		<h1 class="caption">Precision vs practicality</h1>
 	</section>
-	
+
 	<section class="top-heavy image slide" style="background-image: url(img/pregnancy-test.jpg);" data-source="http://www.flickr.com/photos/mandaloo/4369363690/">
 		<h1>False positives vs false negatives</h1>
 	</section>
-	
+
 	<section class="image slide" style="background: hsl(75, 50%, 30%);">
 		<hgroup class="caption">
 			<h1>Keep it simple</h1>
 			<h2>Even if it means not using regexes at all</h2>
 		</hgroup>
 	</section>
-	
+
 	<section class="slide">
 		<h1>For performance</h1>
 		<ul>
@@ -442,7 +439,7 @@
 	<header class="slide" id="js-regexp-api">
 		<h1>JS RegExp API</h1>
 	</header>
-	
+
 	<section class="slide">
 		<h1>RegExp instances</h1>
 		<pre><code class="language-javascript">var literal = /^\$\d+/g,
@@ -451,9 +448,9 @@
 		<ul class="delayed">
 			<li>Literals are simpler, faster, more concise</li>
 			<li>Only use the constructor when you really have to!</li>
-		</ul>	
+		</ul>
 	</section>
-	
+
 	<section class="slide">
 		<h1>RegExp properties for flags</h1>
 		<ul>
@@ -466,15 +463,15 @@
 			<li>
 				<code>RegExp#ignoreCase</code>
 			</li>
-		</ul>	
-		
+		</ul>
+
 		<pre><code class="language-javascript">>>> /a/g.global; // true
 >>> /a/.global; // false
 >>> /a/m.multiline; // true
 >>> /a/gi.multiline; // false
 >>> /a/i.ignoreCase; // true</code></pre>
 	</section>
-	
+
 	<section class="slide">
 		<h1>Other RegExp properties</h1>
 		<ul>
@@ -485,9 +482,9 @@
 			<li><code>RegExp#lastIndex</code></li>
 		</ul>
 	</section>
-	
+
 	<section class="slide" data-import="methods"></section>
-	
+
 	<section class="slide">
 		<h1><code>RegExp#test</code></h1>
 		<pre><code class="language-javascript">/a/.test('ab'); // returns true</code></pre>
@@ -495,7 +492,7 @@
 			<li>Faster than most of the others</li>
 		</ul>
 	</section>
-	
+
 	<section class="slide">
 		<h1><code>RegExp#exec</code></h1>
 		<pre><code class="language-javascript">/a(b)/.exec('abba'); // ["ab", "b"]</code></pre>
@@ -507,8 +504,8 @@ while (m = reg.exec(bar))
     groups: m
   });</code></pre>
 	</section>
-	
-	
+
+
 	<section class="slide">
 		<h1><code>RegExp#exec</code></h1>
 		<pre><code class="language-javascript">>>> /a(bc)/.exec('abcba')[1];
@@ -520,7 +517,7 @@ while (m = reg.exec(bar))
 			<pre><code class="language-javascript">>>> (/regex/.exec('string') || [,''])[1];</code></pre>
 		</div>
 	</section>
-		
+
 	<section class="slide">
 		<h1><code>String#match</code></h1>
 		<pre><code class="language-javascript">>>> 'abcdef'.match(/(\w){3}/);
@@ -530,7 +527,7 @@ while (m = reg.exec(bar))
 		<pre><code class="language-javascript">>>> 'ab'.match(/(\w){3}/g);
 null</code></pre>
 	</section>
-	
+
 	<section class="slide">
 		<h1><code>String#replace</code></h1>
 		<pre><code class="language-javascript">>>> 'blabla'.replace('b', ''); // "labla"</code></pre>
@@ -540,11 +537,11 @@ null</code></pre>
 	return $1.toUpperCase();
 }); // "borderRadius"</code></pre>
 	</section>
-	
+
 	<section class="slide">
 		<h1><code>String#split</code></h1>
 		<pre><code class="language-javascript">'Lea wants a $20K Mini.'.split(/\s+/).length; // 5</code></pre>
-		
+
 		<h1><code>String#search</code></h1>
 		<pre><code class="language-javascript">'Lea wants a $20K Mini.'.search(/\s+/); // 3</code></pre>
 		<ul class="delayed">
@@ -557,7 +554,7 @@ null</code></pre>
 	<header class="slide" id="tools">
 		<h1>Tools</h1>
 	</header>
-	
+
 	<section class="slide">
 		<hgroup>
 			<h1>XRegExp</h1>
@@ -574,9 +571,9 @@ null</code></pre>
 			<li>Plugins for even more awesomeness</li>
 		</ul>
 	</section>
-	
+
 	<section class="slide" data-src="http://xregexp.com/"></section>
-	
+
 	<section class="slide">
 		<hgroup>
 			<h1>Regexpal</h1>
@@ -590,11 +587,11 @@ null</code></pre>
 			<li>Pure JavaScript, so you can save it and use offline</li>
 		</ul>
 	</section>
-	
+
 	<section class="slide" data-src="http://regexpal.com/"></section>
-	
+
 	<section class="slide" data-src="http://www.regexbuddy.com/"></section>
-	
+
 	<section class="slide">
 		<h1>Resources</h1>
 		<h2>Online:</h2>
@@ -626,11 +623,11 @@ $$('body.no-challenges .slide[data-type="Solution"]').forEach(function(slide) {
 	var challengeSlide = slide.previousElementSibling;
 	var h1 = $('h1', slide);
 	var sibling = h1? h1.nextSibling : null;
-	
+
 	$$('p', challengeSlide).forEach(function(p) {
 		slide.insertBefore(p, sibling);
 	});
-	
+
 	challengeSlide.parentNode.removeChild(challengeSlide);
 	slide.setAttribute('data-type', 'Example');
 });
@@ -641,6 +638,6 @@ $$('body.no-challenges .slide[data-type="Solution"]').forEach(function(slide) {
 <script src="regexplained.js"></script>
 <script src="../prism.js/prism.js"></script>
 <script>var slideshow = new SlideShow();</script>
-	
+
 </body>
 </html>
