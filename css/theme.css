@@ -10,16 +10,24 @@ body {
 }
 
 h1, h2 {
-	font-size: 200%;
+	font-size: 250%;
 	font-weight: normal;
 }
 
+h1 {
+	color: var(--color-green);
+}
+
 h2 {
-	font: italic 160% Baskerville, serif;
+	font: italic 200%/1 Baskerville, serif;
 }
 
 ul {
 	padding: 0 0 0 1em;
+}
+
+ul.plain {
+	padding: 0;
 }
 
 	ul > li {
@@ -27,12 +35,12 @@ ul {
 		list-style: none;
 	}
 
-	ul:not(.styled) > li::before {
+	ul:not(.plain) > li::before {
 		content: '✓';
 		position: absolute;
 		left: -.8em;
 		top: -.3em;
-		color: hsl(75, 70%, 60%);
+		color: var(--color-green);
 		font-size: 150%;
 	}
 
@@ -40,7 +48,7 @@ button {
 	padding: 0 .3em;
 	border: 1px solid rgba(0,0,0,.1);
 	border-radius: .3em;
-	background: hsl(75, 70%, 60%);
+	background: var(--color-green);
 	background-image: linear-gradient(hsla(75, 70%, 60%, 0), hsl(75, 70%, 35%));
 	background-origin: border-box;
 	box-shadow: 0 1px white inset, 0 .2em .25em -.1em black;
@@ -54,8 +62,44 @@ button:active {
 	box-shadow: 0 1px hsla(0,0%,100%,.3), 0 1px .3em .05em black inset;
 }
 
+table {
+	border-spacing: 0;
+	border-collapse: collapse;
+}
+
+	thead {
+		background: black;
+	}
+
+		thead th {
+			padding: 0 .3em;
+			text-align: left;
+			font-weight: bold;
+			white-space: nowrap;
+			border: 1px solid hsla(0,0%,100%,.1)
+		}
+
+	th, td {
+		border: 1px solid hsla(0,0%,100%,.2);
+	}
+
+	td {
+		padding: 0 .3em;
+
+	}
+
 .slide {
+	display: flex;
+	flex-flow: column;
+	align-items: center;
+	justify-content: center;
 	padding: 1em;
+	margin: auto;
+}
+
+.slide.narrow {
+	width: min-content;
+	align-items: stretch;
 }
 
 body > header.slide:target {
@@ -98,7 +142,7 @@ section > header.slide:target {
 		padding: .3em .5em;
 		margin: 1em -.3em;
 		background: rgba(0,0,0,.2);
-		border-radius: .3em;
+		border-radius: .8rem;
 		box-shadow: 1px 1px 6px rgba(0,0,0,.5) inset;
 	}
 
@@ -107,12 +151,16 @@ section > header.slide:target {
 	}
 
 	.slide:not(.image) h2 {
-		color: hsl(30,20%,19%);
+		color: hsl(30,20%,15%);
 		text-shadow: 0 .1rem hsla(0,0%,100%,.3);
 	}
 
 	.slide:not(.image) > hgroup > h2 {
 		margin-top: -.4em;
+	}
+
+	.image.slide .caption {
+		margin-top: 0;
 	}
 
 	.image.slide .caption dd,
@@ -124,7 +172,7 @@ section > header.slide:target {
 	position: absolute;
 	bottom: 1em;
 	left: 0; right: 0;
-	color: hsl(75, 70%, 60%);
+	color: var(--color-green);
 }
 
 /* Syntax highlighting */
@@ -138,7 +186,7 @@ section > header.slide:target {
 }
 
 .property, .string, .attr-value {
-	color: hsl(75, 70%, 60%);
+	color: var(--color-green);
 }
 
 .selector, .keyword, .tag {
@@ -166,7 +214,6 @@ section > header.slide:target {
 	font-size: 1.3rem;
 	color: hsl(30,20%,19%);
 	text-shadow: 0 .1rem hsla(0,0%,100%,.3);
-
 }
 
 /* Ribbon */
@@ -217,4 +264,17 @@ section.page:not(.focus):not(:hover)::-webkit-scrollbar {
 
 ::-webkit-scrollbar-corner {
 	background: transparent;
+}
+
+p.hint {
+	position: absolute;
+	bottom: .5em;
+	right: 1em;
+	font-size: 40%;
+	text-shadow: none;
+	color: hsla(0,0%,00%,.2);
+}
+
+.math {
+	font-family: CMU Serif, Cambria Math, serif;
 }

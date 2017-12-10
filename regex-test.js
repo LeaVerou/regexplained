@@ -1,207 +1,125 @@
 // Code for simple regex testers
 (function(){
 
-var _ = self.RegExpTester = function(container){
-	var me = this;
+var _ = self.RegExpTester = $.Class({
+	constructor: function(container){
+		var me = this;
 
-	var patternAttr = container.getAttribute('data-pattern'),
-	    initialPattern = RegExp(patternAttr || ''),
-	    initialTest = container.getAttribute('data-test');
+		var patternAttr = container.getAttribute('data-pattern'),
+		    initialPattern = RegExp(patternAttr || ''),
+		    initialTest = container.getAttribute('data-test');
 
-	this.pattern = RegExp(initialPattern.source);
-	this.flags = container.getAttribute('data-flags') || 'g';
-	this.detailed = !container.hasAttribute('data-simple');
-	this.matches = [];
+		this.container = container;
+		this.pattern = RegExp(initialPattern.source);
+		this.flags = container.getAttribute('data-flags') || 'g';
+		this.detailed = !container.hasAttribute('data-simple');
+		this.matches = [];
 
-	container.classList.add('regex-test');
+		container.classList.add('regex-test');
 
-	this.input = $.create({
-			tag: 'input',
+		this.input = $.create("input", {
+			value: patternAttr,
+			tabIndex: 1
+		});
+
+		this.tester = $.create("input", {
+ 			value: initialTest,
+ 			tabIndex: 2
+		});
+
+		this.flagsContainer = $.create('span', this.flags);
+
+		this.testerContainer = $.create({
+			className: 'tester' + (initialPattern.test(initialTest)? '' : ' invalid'),
+			contents: [
+				'"',
+				{
+					tag: 'div',
+					contents: this.tester
+				},
+				'"'
+			],
+			start: container
+		});
+
+		this.patternContainer = $.create({
+			className: 'pattern',
+			contents: [
+				'/',
+				{
+					tag: 'div',
+					contents: this.input
+				},
+				'/',
+				this.flagsContainer
+			],
+			start: container
+		});
+
+		this.matchIndicator = $.create('div', {
 			properties: {
-				value: patternAttr,
-				tabIndex: 1
+				className: 'match indicator'
+			},
+			inside: this.tester.parentNode
+		});
+
+		this.submatchIndicator = $.create('div', {
+			properties: {
+				className: 'sub match indicator'
+			},
+			inside: this.tester.parentNode
+		});
+
+		this.matchIndicator.style.display = this.submatchIndicator.style.display = 'none';
+
+		this.timeIndicator = $.create({
+			className: "time-taken",
+			after: this.testerContainer
+		});
+
+		container.addEventListener('keydown', function(evt) {
+			if (evt.keyCode === 38 || evt.keyCode === 40) {
+				evt.stopPropagation();
+				evt.preventDefault();
+
+				var method = (evt.keyCode === 40? 'next' : 'prev') +
+				             (evt.ctrlKey? 'Subpattern' : 'Match');
+				me[method]();
+			}
+
+			if (evt.ctrlKey) {
+				if (["i", "m", "s", "y", "u"].indexOf(evt.key) > -1) {
+					me.toggleFlag(evt.key);
+				}
 			}
 		});
 
-	this.tester = $.create({
-		    	tag: 'input',
-		    	properties: {
-		    		value: initialTest,
-		    		tabIndex: 2
-		    	}
-		    });
+		$.bind([this.input, this.tester], 'input', function(){
+			var div = this.parentNode.parentNode;
 
-	this.flagsContainer = $.create('span', this.flags);
+			div.style.fontSize = _.fontSize(this.value.length) + '%';
 
-	$.create({
-		properties: {
-			className: 'tester' + (initialPattern.test(initialTest)? '' : ' invalid')
-		},
-		contents: [
-			'"',
-			{
-				tag: 'div',
-				contents: this.tester
-			},
-			'"'
-		],
-		start: container
-	});
-	
-	$.create({
-		properties: {
-			className: 'pattern'
-		},
-		contents: [
-			'/',
-			{
-				tag: 'div',
-				contents: this.input
-			},
-			'/',
-			this.flagsContainer
-		],
-		start: container
-	});
+			this.style.width = _.getCh(this);
 
-
-
-	this.matchIndicator = $.create('div', {
-		properties: {
-			className: 'match indicator'
-		},
-		inside: this.tester.parentNode
-	});
-
-	this.submatchIndicator = $.create('div', {
-		properties: {
-			className: 'sub match indicator'
-		},
-		inside: this.tester.parentNode
-	});
-
-	this.matchIndicator.style.display = this.submatchIndicator.style.display = 'none';
-
-	container.addEventListener('keydown', function(evt) {
-		if (evt.keyCode === 38 || evt.keyCode === 40) {
-			evt.stopPropagation();
-			evt.preventDefault();
-
-			var method = (evt.keyCode === 40? 'next' : 'prev') +
-			             (evt.ctrlKey? 'Subpattern' : 'Match');
-			me[method]();
-		}
-
-		if (evt.ctrlKey) {
-			if (evt.keyCode === 73) { // I
-				me.toggleFlag('i');
-			}
-			else if (evt.keyCode === 77) { // M
-				me.toggleFlag('m');
-			}
-		}
-	});
-
-	$.bind([this.input, this.tester], 'input', function(){
-		var div = this.parentNode.parentNode;
-
-		div.style.fontSize = _.fontSize(this.value.length) + '%';
-
-		this.style.width = _.getCh(this);
-
-		me.test();
-	});
-
-	if(this.embedded = container.classList.contains('slide')) {
-		addEventListener('hashchange', function(){
-			if(container.id === location.hash.slice(1)) {
-				$.fire([me.input, me.tester], 'input');
-			}
+			me.test();
 		});
 
-		setTimeout(function(){
-			$.fire(window, 'hashchange');
-		}, 0);
-	}
-	else {
-		$.fire([this.input, this.tester], 'input');
-	}
-};
+		if(this.embedded = container.classList.contains('slide')) {
+			addEventListener('hashchange', function(){
+				if (container.id === location.hash.slice(1)) {
+					$.fire([me.input, me.tester], 'input');
+				}
+			});
 
-_.supportsCh = (function() {
-	var dummy = document.createElement('_');
-	dummy.style.width = '1ch';
-	return !!dummy.style.width;
-})();
-
-if(_.supportsCh) {
-	_.getCh = function(input) { return (input.value.length || .2) + 'ch'; }
-}
-else {
-	_.getCh = function(input) {
-		var parent = input.parentNode, dummy;
-
-		dummy = _.getCh.dummy || (_.getCh.dummy = document.createElement('_'));
-
-		dummy.style.display = 'inline-block';
-
-		if(dummy.parentNode !== parent) {
-			parent.appendChild(dummy);
-		}
-
-		// Replace spaces with characters so they don't get collapsed
-		dummy.textContent = input.value.replace(/ /g, 'a');
-
-		var w = dummy.offsetWidth;
-
-		dummy.style.display = 'none';
-
-		input.ch = w/input.value.length;
-
-		return w + 'px';
-	}
-}
-
-_.fontSize = (function(){
-	var sizes = [];
-
-	sizes[9]  = 360;
-	sizes[11] = 340;
-	sizes[13] = 290;
-	sizes[20] = 200;
-	sizes[40] = 100;
-
-	var lowerBound = 9;
-
-	for(var i=0; i<9; i++) {
-		sizes[i] = sizes[9];
-	}
-
-	for(var i=9; i<sizes.length; i++) {
-		if(sizes[i] === undefined) {
-			for(var j=i+1; sizes[j] === undefined; j++);
-
-			var upperBound = j,
-			    range = upperBound - lowerBound,
-			    ratio = (i - lowerBound)/range;
-
-			sizes[i] = sizes[lowerBound] - ratio * (sizes[lowerBound] - sizes[upperBound])
+			setTimeout(function(){
+				$.fire(window, 'hashchange');
+			}, 0);
 		}
 		else {
-			lowerBound = i;
+			$.fire([this.input, this.tester], 'input');
 		}
-	}
+	},
 
-	return function(length) {
-		if(sizes[length]) {
-			return sizes[length];
-		}
-
-		return sizes[sizes.length - 1];
-	}
-})();
-
-_.prototype = {
 	positionIndicator: function(indicator, index, length) {
 		var ch = this.tester.ch || this.tester.offsetWidth / this.tester.value.length;
 
@@ -223,6 +141,8 @@ _.prototype = {
 			return;
 		}
 
+		var timeBefore = performance.now();
+
 		var test = this.testStr = this.tester.value.replace(/\\n/g, '\n').replace(/\\r/g, '\r'),
 		    isMatch = pattern.test(test);
 
@@ -235,6 +155,7 @@ _.prototype = {
 		if (isMatch) {
 			// Show exact matches
 			var match;
+
 
 			while (match = pattern.exec(test)) {
 				var matches = {
@@ -251,7 +172,21 @@ _.prototype = {
 			}
 		}
 
+		this.displayTimeTaken(performance.now() - timeBefore);
+
 		this.nextMatch();
+	},
+
+	displayTimeTaken: function(timeTaken) {
+		if (timeTaken) {
+			this.timeIndicator.innerHTML = _.formatDuration(timeTaken);
+			this.timeIndicator.classList.toggle("slow", timeTaken > 10);
+			this.timeIndicator.classList.toggle("very-slow", timeTaken > 100);
+			this.timeIndicator.classList.toggle("fast", timeTaken < 1);
+		}
+		else {
+			this.timeIndicator.innerHTML = "";
+		}
 	},
 
 	toggleFlag: function (flag) {
@@ -364,7 +299,69 @@ _.prototype = {
 		}
 
 		this.gotoSubpattern(--matches.index);
+	},
+
+	static: {
+		getCh: function(input) { return (input.value.length || .2) + 'ch'; },
+
+		formatDuration: function(ms) {
+			var decimals = 0;
+			var unit = "ms";
+
+			if (ms >= 1000) {
+				ms /= 1000;
+				unit = "s";
+			}
+
+			if (ms < 10) {
+				decimals = 2;
+			}
+
+			return ms.toLocaleString("en-us", {
+				maximumFractionDigits: decimals
+			}) + unit;
+		}
 	}
-};
+});
+
+
+_.fontSize = (function(){
+	var sizes = [];
+
+	sizes[9]  = 360;
+	sizes[11] = 340;
+	sizes[13] = 290;
+	sizes[20] = 200;
+	sizes[40] = 100;
+
+	var lowerBound = 9;
+
+	for(var i=0; i<9; i++) {
+		sizes[i] = sizes[9];
+	}
+
+	for(var i=9; i<sizes.length; i++) {
+		if(sizes[i] === undefined) {
+			for(var j=i+1; sizes[j] === undefined; j++);
+
+			var upperBound = j,
+			    range = upperBound - lowerBound,
+			    ratio = (i - lowerBound)/range;
+
+			sizes[i] = sizes[lowerBound] - ratio * (sizes[lowerBound] - sizes[upperBound])
+		}
+		else {
+			lowerBound = i;
+		}
+	}
+
+	return function(length) {
+		if(sizes[length]) {
+			return sizes[length];
+		}
+
+		return sizes[sizes.length - 1];
+	}
+})();
 
 })();

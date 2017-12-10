@@ -15,7 +15,7 @@
 <link href="css/regex-test.css" rel="stylesheet" />
 
 </head>
-<body class="no-challenges">
+<body>
 
 <header id="intro" class="slide dont-resize">
 	<hgroup>
@@ -29,7 +29,7 @@
 
 <section id="introduction">
 	<section class="top-heavy slide dont-resize" id="projects">
-		<ul class="styled">
+		<ul class="plain">
 			<li><a href="http://mavo.io/" style="background-image: url(../talks/shared/img/project-mavo.png)">Mavo</a></li>
 			<li><a href="http://prismjs.com" style="background-image: url(../talks/shared/img/project-prism.png)">PrismJS</a></li>
 			<li><a href="http://leaverou.github.io/prefixfree" style="background-image: url(../talks/shared/img/project-prefixfree.png)">-prefix-free</a></li>
@@ -53,7 +53,7 @@
 	</section>
 
 	<section class="inverse slide dont-resize darker hi" id="book">
-		<a href="http://shop.oreilly.com/product/0636920031123.do" class="delayed">
+		<a href="http://shop.oreilly.com/product/0636920031123.do">
 			<img src="../talks/shared/img/book.png" alt="CSS Secrets by O’Reilly" style="display:block" />
 			★★★★★ on Amazon
 		</a>
@@ -98,8 +98,8 @@
 	</code></h1>
 </section>
 
-<section class="slide">
-	<pre><code class="language-javascript">if(/^(th|td)$/i.test(element.nodeName))</code></pre>
+<section class="narrow slide">
+	<pre><code class="language-javascript">"pâté".normalize("NFD").replace(/[\u0300-\u036f]/g, "") // "pate"</code></pre>
 	<pre><code class="language-markup">&lt;input name="zip" pattern="\d{5}" /> </code></pre>
 	<pre><code class="language-javascript">'lea@verou.me'.match(/(\w+)@/)[1] // "lea"</code></pre>
 	<pre><code class="language-javascript">code.replace(/ {4}/g, '\t'); // fix broken indentation</code></pre>
@@ -107,34 +107,36 @@
 </section>
 
 <section>
-	<header class="slide">
-		<h1>Syntax</h1>
-	</header>
-
 	<section class="slide syntax-breakdown">
 		<h1><code style="font-size: 7vw;">
 			<span title="Starts with a&nbsp;slash">/</span>
 			<span title="Pattern (what to match)" data-index="1">&amp;(lt|gt|amp);</span>
 			<span title="Ends with a&nbsp;slash">/</span>
-			<span title="Flags (combination of g, i, m)" data-index="1">g</span>
+			<span title="Flags (combination of g, i, m, y, u, s)" data-index="1">gi</span>
 		</code></h1>
 	</section>
 
-	<section class="slide" id="methods">
+	<!-- <section class="slide" id="methods">
 		<h1>RegExp aware methods</h1>
+
+		<h2><code>RegExp.prototype</code></h2>
 		<ul>
-			<li><code class="language-javascript">RegExp#test(String)</code></li>
-			<li><code class="language-javascript">String#match(RegExp)</code></li>
-			<li><code class="language-javascript">String#replace(RegExp, String | Function)</code></li>
-			<li><code class="language-javascript">String#split(RegExp)</code></li>
-			<li><code class="language-javascript">RegExp#exec(String)</code></li>
-			<li><code class="language-javascript">String#search(RegExp)</code></li>
+			<li><code class="language-javascript">test(String)</code></li>
+			<li><code class="language-javascript">exec(String)</code></li>
 		</ul>
-	</section>
 
-	<section class="slide" data-src="index.html" data-title="Try stuff out at leaverou.github.io/regexplained"></section>
+		<h2 style="margin-top: 1em"><code>String.prototype</code></h2>
+		<ul>
+			<li><code class="language-javascript">match(RegExp)</code></li>
+			<li><code class="language-javascript">replace(RegExp, String | Function)</code></li>
+			<li><code class="language-javascript">split(RegExp)</code></li>
+			<li><code class="language-javascript">search(RegExp)</code></li>
+		</ul>
+	</section> -->
 
-	<section class="regex-test slide" data-pattern="a">
+	<section class="slide" data-src="index.html" data-title="Try stuff out at regexplained.com"></section>
+
+	<section class="regex-test slide" data-pattern="a" title="Literals">
 		<h1>What we learned</h1>
 		<ul class="delayed-children persistent">
 			<li>Regexes match anywhere, unless restricted</li>
@@ -143,10 +145,87 @@
 		</ul>
 	</section>
 
+	<article class="slide" title="Flags">
+		<table>
+			<thead>
+				<th>Flag</th>
+				<th>Name</th>
+				<th>Purpose</th>
+				<th>ES?</th>
+			</thead>
+			<tr>
+				<td><code>g</code></td>
+				<td>Global</td>
+				<td>Get all matches</td>
+				<td>ES3</td>
+			</tr>
+			<tr>
+				<td><code>i</code></td>
+				<td>Case Insensitive</td>
+				<td>Ignore case when matching</td>
+				<td>ES3</td>
+			</tr>
+			<tr>
+				<td><code>m</code></td>
+				<td>Multiline</td>
+				<td><code>^</code> and <code>$</code> match the beginning and end of each line, not of the whole string</td>
+				<td>ES3</td>
+			</tr>
+			<tr>
+				<td><code>y</code></td>
+				<td>Sticky</td>
+				<td>Anchors each match of a regular expression to the end of the previous match.</td>
+				<td>ES2015</td>
+			</tr>
+			<tr>
+				<td><code>u</code></td>
+				<td>Unicode</td>
+				<td>Treat pattern as a sequence of unicode code points</td>
+				<td>ES2015</td>
+			</tr>
+			<tr>
+				<td><code>s</code></td>
+				<td>DotAll</td>
+				<td><code>.</code> matches newlines as well.</td>
+				<td>ES2018? (Stage 3)</td>
+			</tr>
+		</table>
+	</article>
+
+	<section class="regex-test slide" data-pattern="cat|bat|dog" data-test="cat" title="Grouping">
+		<h1>What we learned</h1>
+		<ul class="delayed-children persistent">
+			<li>| for alternatives</li>
+			<li>Group with parenthses (Useful for alternatives or quantifiers)</li>
+		</ul>
+		<p class="hint">Show that alternatives can be empty</p>
+	</section>
+
+	<section class="slide" data-type="Challenge" data-duration="1" data-video="hamsters.webm" style="--position: right">
+		<h1>Test Challenge</h1>
+		<p>Examples:
+			This will be a list of strings you have to match
+		</p>
+	</section>
+
+	<!-- <article class="refactoring slide language-js">
+		<ul class="js-vs-regex">
+			<li>
+				<pre><code>while(index < str.length) {
+	str.in
+}</code></pre>
+				<strong>&lt;</strong>
+				<code></code>
+			</li>
+		</ul>
+	</article> -->
+
 	<section class="regex-test slide" data-pattern="1.5" data-test="1.5" title="The dot metacharacter">
+		<p class="hint">/1.5/ show it matches 21056 etc</p>
 		<h1>What we learned</h1>
 		<ul class="delayed-children persistent">
 			<li>Dot (.) matches anything, except line breaks</li>
+			<li>The experimental <code>s</code> flag makes it match line breaks</li>
 			<li>Escape metacharacters with a backslash</li>
 		</ul>
 	</section>
@@ -174,6 +253,7 @@
 			<li>{n,} = at least n times</li>
 			<li>{m,n} = at least m times but no more than n times</li>
 		</ul>
+		<p class="hint">(ab){n}, a{2,5} and caaaaaaaaaat</p>
 	</section>
 
 	<section class="regex-test slide" data-pattern="bo{0,}" data-test="boooo" title="Quantifier shortcuts">
@@ -188,8 +268,9 @@
 		<h1>What we learned</h1>
 		<ul class="delayed-children persistent">
 			<li>Quantifiers are greedy</li>
-			<li>You can change that by adding a ? after them</li>
+			<li>Make them lazy by adding a ? after them</li>
 		</ul>
+		<p class="hint">Delete last > to show what happens</p>
 	</section>
 
 	<section class="regex-test slide" data-pattern="[bdfglmprty]uck" title="Character classes">
@@ -199,6 +280,20 @@
 			<li>Concatenate multiple ranges for a union</li>
 			<li>Most metacharacters don’t need escaping in <code>[]</code></li>
 		</ul>
+		<p class="hint">in Unicode order</p>
+	</section>
+
+	<section class="slide" data-type="Challenge" data-duration="1">
+		<h1>Hex color</h1>
+		<p>Examples:
+			<code>#abc</code>, <code>#f00</code>, <code>#BADA55</code>, <code>#C0FFEE</code>
+		</p>
+	</section>
+
+	<section class="narrow slide" data-type="Solution">
+		<h1>Hex color</h1>
+		<pre><code class="language-javascript">/#[a-f0-9]{3,6}/i // Wrong!</code></pre>
+		<pre class="delayed persistent"><code class="language-javascript">/#([a-f0-9]{3}){1,2}/i</code></pre>
 	</section>
 
 	<section class="regex-test slide" data-pattern="[a-zA-Z0-9_]" title="Predefined character classes">
@@ -222,27 +317,25 @@
 }</code></pre>
 	</section>
 
-	<!--<section class="slide" data-type="Challenge" data-duration="1">
-		<h1>Test challenge</h1>
+	<section class="slide" data-type="Challenge" data-duration="2">
+		<h1>Number</h1>
+		<p>Without exponent or digit separators</p>
 		<p>Examples:
-			This will be a list of strings you have to match
-		</p>
-	</section>-->
-
-	<section class="slide" data-type="Challenge" data-duration="1">
-		<h1>Hex color</h1>
-		<p>Examples:
-			<code>#abc</code>, <code>#f00</code>, <code>#BADA55</code>, <code>#C0FFEE</code>
+			<code>-1</code>, <code>.05</code>, <code>+1000</code>, <code>3.1415926535</code>, <code>42.</code>
 		</p>
 	</section>
 
-	<section class="slide" data-type="Solution">
-		<h1>Hex color</h1>
-		<pre><code class="language-javascript">/^#[a-f\d]{3,6}$/i.test(str); // Wrong!</code></pre>
-		<pre class="delayed persistent"><code class="language-javascript">/^#([a-f\d]{3}){1,2}$/i.test(str);</code></pre>
+	<section class="narrow slide" data-type="Solution">
+		<h1>Number</h1>
+		<pre><code class="language-javascript">/^[-+]?[\d.]+$/ // Too lax</code></pre>
+		<pre class="delayed persistent"><code class="language-javascript">/^[-+]?\d*\.?\d+$/ // False negatives: 5.</code></pre>
+		<pre class="delayed persistent"><code class="language-javascript">/^[-+]?\d*\.?\d*$/ // False positives: ., +., + etc</code></pre>
+		<pre class="delayed persistent"><code class="language-javascript">// Accurate, but is it worth it?
+/^[-+]?(\d*\.?\d+|\d+\.)$/</code></pre>
 	</section>
 
 	<section class="regex-test slide" data-pattern="[\u0001-/:-@[-^`{-\uffff]" data-test="afz" title="Negated character classes">
+		<!-- [\u0001-/:-@[-^`{-\uffff] -->
 		<h1>What we learned</h1>
 		<ul class="delayed-children persistent">
 			<li><code>^</code> negates a character class</li>
@@ -266,15 +359,6 @@
 		<p>Warning: Will fail in edge cases</p>
 	</section>
 
-	<section class="regex-test slide" data-pattern="w(ft|tf)" data-test="wtf" title="Grouping">
-		<h1>What we learned</h1>
-		<ul class="delayed-children persistent">
-			<li>| for alternatives</li>
-			<li>Group with parenthses (Useful for alternatives or quantifiers)</li>
-			<li>Parentheses have special meaning</li>
-		</ul>
-	</section>
-
 	<section class="regex-test slide" data-pattern="(Java|ECMA)Script" data-test="JavaScript" title="Capturing">
 		<h1>What we learned</h1>
 		<ul class="delayed-children persistent">
@@ -293,50 +377,6 @@
 	</section>
 
 	<section class="slide" data-type="Challenge" data-duration="2">
-		<h1>Number</h1>
-		<p>Without exponent or digit separators</p>
-		<p>Examples:
-			<code>-1</code>, <code>.05</code>, <code>+1000</code>, <code>3.1415926535</code>, <code>42.</code>
-		</p>
-	</section>
-
-	<section class="slide" data-type="Solution">
-		<h1>Number</h1>
-		<pre><code class="language-javascript">/^[-+]?[\d.]+$/ // Too lax</code></pre>
-		<pre class="delayed persistent"><code class="language-javascript">/^[-+]?\d*\.?\d+$/ // False negatives: 5.</code></pre>
-		<pre class="delayed persistent"><code class="language-javascript">/^[-+]?\d*\.?\d*$/ // False positives: ., +., + etc</code></pre>
-		<pre class="delayed persistent"><code class="language-javascript">// Accurate, but is it worth it?
-/^[-+]?(\d*\.?\d+|\d+\.)$/</code></pre>
-	</section>
-
-	<section class="slide" data-type="Example">
-		<h1>Trimming a string</h1>
-		<pre><code class="language-javascript">if (!String.prototype.trim) {
-    String.prototype.trim = function(){
-        return this.replace(/^\s+|\s+$/g, '');
-    }
-}</code></pre>
-	</section>
-
-	<section class="regex-test slide" data-pattern="\b" title="Assertions">
-		<h1>What we learned</h1>
-		<ul class="delayed-children persistent">
-			<li><code>\b</code> = word boundary = between <code>\w</code> and <code>\W|^|$</code></li>
-			<li><code>\B</code> = non-word boundary = between <code>\w</code> and <code>\w</code> or <code>\W</code> and <code>\W</code></li>
-			<li>Assertions are zero width</li>
-		</ul>
-	</section>
-
-	<section class="regex-test slide" data-pattern="a(b)" data-test="ab" title="Lookahead">
-		<h1>What we learned</h1>
-		<ul class="delayed-children persistent">
-			<li><code>(?=a)</code> = followed by a, which can be any regex</li>
-			<li><code>(?!a)</code> = NOT followed by a</li>
-			<li>No lookbehind in ECMAScript :(</li>
-		</ul>
-	</section>
-
-	<section class="slide" data-type="Challenge" data-duration="2">
 		<h1>ISO 8601 Dates</h1>
 		<p>Just dates, no time or timezone information</p>
 		<p>Examples:
@@ -351,20 +391,79 @@
 		<p class="delayed">Can it be improved further?</p>
 	</section>
 
-	<section class="slide">
-		<h1>Lookahead hacks</h1>
-		<h2>Intersection</h2>
-		<pre><code class="language-javascript">// A 6+ letter password with at least:
-// one number, one letter and one symbol
+	<section class="slide" data-type="Example">
+		<h1>Trimming a string</h1>
+		<pre><code class="language-javascript">if (!String.prototype.trim) {
+    String.prototype.trim = function(){
+        return this.replace(/^\s+|\s+$/g, '');
+    }
+}</code></pre>
+	</section>
+
+	<section class="regex-test slide" data-pattern="\b" title="Assertions">
+		<h1>What we learned</h1>
+		<ul class="delayed-children persistent">
+			<li>Assertions are zero width</li>
+			<li><code>\b</code> = word boundary = between <code>\w</code> and <code>\W|^|$</code></li>
+			<li><code>\B</code> = non-word boundary = between <code>\w</code> and <code>\w</code> or <code>\W</code> and <code>\W</code></li>
+		</ul>
+	</section>
+
+	<article class=" slide language-js">
+		<h1>Before <code>element.classList</code>…</h1>
+		<pre><code>function removeClass(element, name) {
+	var regex = RegExp("\\b" + name + "\\b", "g");
+	return element.className = element.className.replace(regex, ""));
+}</code></pre>
+		<pre class="delayed"><code>element.className = "item-toolbar";
+removeClass(element, "toolbar"); // "item-"</code></pre>
+	</article>
+
+	<section class="regex-test slide" data-pattern="a(b)" data-test="ab" title="Lookahead">
+		<h1>What we learned</h1>
+		<ul class="delayed-children persistent">
+			<li><code>(?=a)</code> = followed by a, which can be any regex</li>
+			<li><code>(?!a)</code> = NOT followed by a</li>
+		</ul>
+	</section>
+
+	<section id="lookahead-hacks" class="language-javascript">
+		<header class="slide">
+			<h1>Lookahead hacks</h1>
+			<h2>for fun and profit</h2>
+		</header>
+
+		<section class="slide">
+			<h1>Intersection <span class="math"><em>A</em> ∩ <em>B</em></span></h1>
+			<p>“Password must be 6 letters or longer, and must contain at least one number, one letter, and one symbol.”</p>
+			<pre><code>password.length > 6
+		&& /\d/.test(password) // has digit?
+		&& /[a-z]/i.test(password) // has letter?
+		&& /\W/.test(password) // has symbol?</code></pre>
+			<pre class="delayed"><code>// Or, with lookaheads…
 /^(?=.*\d)(?=.*[a-z])(?=.*[\W_]).{6,}$/i</code></pre>
+		</section>
 
-		<h2>Subtraction</h2>
-		<pre><code class="language-javascript">// Any number that’s NOT divisible by 50
-/\b(?!\d+[50]0)\d+\b/</code></pre>
+		<section class="slide">
+			<h1>Subtraction <span class="math"><em>A</em> – <em>B</em></h1>
+			<p>“Any integer that’s NOT divisible by 50”</p>
+			<pre><code> /^(?!\d+[50]0)\d+$/</code></pre>
+		</section>
 
-		<h2>Negation</h2>
-		<pre><code class="language-javascript">// Anything that doesn’t contain "foo"
-/^(?!.*foo).+$/</code></pre>
+		<section class="slide">
+			<h1>Negation <span class="math"><em>A̅</em></h1>
+			<p>“Anything that doesn’t contain "foo"”</p>
+			<pre><code>/^(?!.*foo).+$/</code></pre>
+		</section>
+	</section>
+
+	<section class="regex-test slide" data-pattern="(?&lt;=a)b" data-test="ab" title="Lookbehind">
+		<h1>What we learned</h1>
+		<ul class="delayed-children persistent">
+			<li><code>(?&lt;=a)</code> = preceded by a, which can be any regex</li>
+			<li><code>(?&lt;!a)</code> = NOT preceded by a</li>
+			<li>Experimental (<a href="https://github.com/tc39/proposal-regexp-lookbehind">Proposal in Stage 3</a>), only supported in V8 behind a flag</li>
+		</ul>
 	</section>
 
 	<section class="regex-test slide" data-pattern="('|&quot;).+?('|&quot;)" title="Backreferences">
@@ -372,19 +471,35 @@
 		<ul class="delayed-children persistent">
 			<li><code>\N</code> = Nth backreference</li>
 		</ul>
+		<p class="hint">('|")(\\\1|.)+?\1 for escaped quotes</p>
+	</section>
+
+	<section class="regex-test slide" title="Account for escaped quotes AND backslashes"
+		data-pattern="(&quot;|')(\\?.)*?\1"
+		data-test='"He &apos;said&apos; \"hi\"!" "another string"'>
+		<p class="credit">Regex credit: Steven Levithan</p>
 	</section>
 
 	<section class="slide" data-type="Challenge" data-duration="2">
-		<h1>Strings</h1>
+		<h1>Correctly Nested Parens</h1>
 		<p>Examples:
-			<code>"foo"</code>, <code>'bar'</code>, <code>'He said "hi"'</code>, <code>"He 'said' \"hi\""</code>, <code>""</code>, <code>'\\'</code>
+			<code>()</code>, <code>(())()</code>, <code>(()()())</code>, <code>((((((()))))))</code>
+			<br><strong style="color:red">not</strong> <code>()(</code>, <code>)</code>, <code>((((((()))</code>
 		</p>
 	</section>
 
-	<section class="regex-test slide" data-type="Solution"
-		data-pattern="(&quot;|')(\\?.)*?\1"
-		data-test='"He &apos;said&apos; \"hi\"!" "another string"'>
-	</section>
+	<article class="top-heavy image slide" id="troll">
+		<h1 class="delayed">Not a regular language</h1>
+	</article>
+
+	<article class="slide" id="cfg">
+		<h1>Context Free Grammar</h1>
+		<ul class="plain math">
+			<li><em>S</em> → (<em>S</em>)</li>
+			<li><em>S</em> → <em>S</em><em>S</em></li>
+			<li><em>S</em> → <em>ε</em></li>
+		</ul>
+	</article>
 </section>
 
 <section>
@@ -401,11 +516,29 @@
 		<h1>False positives vs false negatives</h1>
 	</section>
 
-	<section class="image slide" style="background: hsl(75, 50%, 30%);">
-		<hgroup class="caption">
+	<section class="image slide language-javascript" id="kiss">
+		<div class="caption">
 			<h1>Keep it simple</h1>
 			<h2>Even if it means not using regexes at all</h2>
-		</hgroup>
+		</div>
+		<ul class="plain delayed-children js-vs-regex">
+			<li>
+				<code>str === "foo"</code>
+				<strong>></strong>
+				<code>/^foo$/.test(str)</code>
+			</li>
+			<li>
+				<code>str.indexOf("foo") > -1</code>
+				<strong>></strong>
+				<code>/foo/.test(str)</code>
+			</li>
+			<li>
+				<code>str.indexOf("foo") === 0</code>
+				<strong>></strong>
+				<code>/^foo/.test(str)</code>
+			</li>
+
+		</ul>
 	</section>
 
 	<section class="slide">
@@ -418,9 +551,17 @@
 			<li>Minimize backtracking</li>
 		</ul>
 	</section>
+
+	<section class="regex-test slide" data-pattern="(x+x+)+y" data-test="xxxx" title="Catastrophic backtracking">
+		<h1>What we learned</h1>
+		<ul class="delayed-children persistent">
+			<li>Only applies when there is no match</li>
+			<li>Avoid nested quantifiers</li>
+		</ul>
+	</section>
 </section>
 
-<section>
+<!-- <section>
 	<header class="slide" id="js-regexp-api">
 		<h1>JS RegExp API</h1>
 	</header>
@@ -533,9 +674,9 @@ null</code></pre>
 			<li>Like a regex-aware <code>String#indexOf</code>!</li>
 		</ul>
 	</section>
-</section>
+</section> -->
 
-<section>
+<!-- <section>
 	<header class="slide" id="tools">
 		<h1>Tools</h1>
 	</header>
@@ -591,25 +732,34 @@ null</code></pre>
 			<li>Mastering Regular Expressions - Jeffrey E.F. Friedl</li>
 		</ul>
 	</section>
-</section>
+</section> -->
 
-<footer class="top-heavy image slide" id="thanks" style="background-image:url(img/thankyou.jpg)" data-source="flickr.com/photos/darwinbell/2602728681/">
-	<div id="contact" class="delayed">
-		<p>lea<strong>.</strong>verou<strong>.me</strong></p>
-		<p>lea<strong>@</strong>verou<strong>.me</strong></p>
-		<p><strong>@</strong>leaverou</p>
-	</div>
+<article class="slide" id="thankyou" title="Thank you!" data-credits="gifimage.net, giphy.com"></article>
+
+<footer class="slide dont-resize">
+	<img src="../talks/shared/img/mark.svg" class="logo" />
+	<h1>Thank you!</h1>
+	<img src="../talks/css-variables/img/stickers.jpg" class="stickers delayed" alt="">
+	<p class="stickercaption delayed">Want one? Just ask!---></p>
+	<ul class="plain">
+		<li style="--icon: '🌍'"><a href="http://mavo.io">lea.verou.me</a></li>
+		<li style="--icon: '✉'"><a href="mailto:lea@verou.me">lea@verou.me</a></li>
+		<li style="--icon: '🐦'"><a href="http://twitter.com/leaverou">@leaverou</a></li>
+	</ul>
+
+	<p>Slides: <a href="https://leaverou.github.io/regexplained/slides.html">leaverou.github.io/regexplained/slides.html</a></p>
+	<p style="font-size: 50%;">This slide deck was entirely built with open web technologies! Slideshow framework: <a href="http://github.com/LeaVerou/CSSS">github.com/LeaVerou/CSSS</a></p>
 </footer>
 
 <script src="bliss.shy.js"></script>
 <script>
-// $$('body.no-challenges .slide[data-type="Solution"]').forEach(function(slide) {
+// Bliss.$('body.no-challenges .slide[data-type="Solution"]').forEach(function(slide) {
 // 	// Turn challenge answers into examples
 // 	var challengeSlide = slide.previousElementSibling;
 // 	var h1 = $('h1', slide);
 // 	var sibling = h1? h1.nextSibling : null;
 //
-// 	$$('p', challengeSlide).forEach(function(p) {
+// 	Bliss.$('p', challengeSlide).forEach(function(p) {
 // 		slide.insertBefore(p, sibling);
 // 	});
 //
@@ -624,7 +774,9 @@ var $ = Bliss, $$ = Bliss.$;
 <script src="regex-test.js"></script>
 <script src="regexplained.js"></script>
 <script src="../prism.js/prism.js"></script>
-<script>var slideshow = new SlideShow();</script>
+<script>
+	$$(".slide.regex-test[title]:not([id])").forEach(slide => slide.id = slide.title.replace(/[^\w\s-]/g, "").replace(/\s+/g, "-").toLowerCase())
+</script>
 
 </body>
 </html>

@@ -1,3 +1,12 @@
+CSS.registerProperty({
+	name: "--progress",
+	syntax: "<percentage>",
+	inherits: false,
+	initialValue: "0%"
+});
+
+(function($){
+
 // Remove spaces in syntax breakdown and add classes to the ones that are towards the end
 $$('.syntax-breakdown h1 code').forEach(function(code){
 	code.innerHTML = code.innerHTML
@@ -16,189 +25,144 @@ $$('.syntax-breakdown h1 code').forEach(function(code){
 });
 
 $$('.regex-test.slide').forEach(function(slide){
+	if (slide.title) {
+		var heading = $("h1", slide);
+
+		if (heading) {
+			heading.innerHTML = slide.title + ": " + heading.innerHTML;
+		}
+	}
+
 	slide.tester = new RegExpTester(slide);
 });
 
 (function(){
-	var _ = window.TwitterSearch = function(q, details) {
-		this.q = q;
-		this.details = details;
-	}
-
-	_.maxId = 0;
-
-	_.prototype = {
-		send: function(q) {
-			window.twitterSearch = this;
-
-			$.import('http://api.twitter.com/1.1/search/tweets.json?' +
-				'callback=twitterSearch.callback' +
-				'&q=' + encodeURIComponent(this.q) +
-				'&since_id=' + _.maxId +
-				'&count=100' +
-				'&result_type=recent');
+	var _ = window.TwitterSearch = $.Class({
+		constructor: function(q, details) {
+			this.q = q;
+			this.details = details;
 		},
 
-		callback: function(data) {
-			delete window.twitterSearch;
+		send: function(q) {
+			var url = `twittersearch.php?q=${encodeURIComponent(this.q)}&since_id=${_.maxId}&count=100&result_type=recent`;
 
-			_.maxId = +data.max_id;
+			return $.fetch(url, {responseType: "json"})
+				.then(xhr => {
+					this.onload && this.onload(xhr.response);
+				});
+		},
 
-			this.onload && this.onload(data);
+		static: {
+			maxId: 0,
+
+			dateOffset: function (date) {
+				var seconds = Math.round((+new Date - new Date(date))/1000);
+
+				if (seconds >= 3600) {
+					var hours = Math.round(seconds/3600);
+					return hours + ' hour' + (hours===1? '' : 's') + ' ago'
+				}
+
+				if(seconds > 60) {
+					var minutes = Math.round(seconds/60);
+					return minutes + ' minute' + (minutes===1? '' : 's') + ' ago'
+				}
+
+				return seconds + ' seconds ago';
+			}
 		}
-	};
-
-	_.dateOffset = function (date) {
-		var seconds = Math.round((+new Date - new Date(date))/1000);
-
-		if (seconds >= 3600) {
-			var hours = Math.round(seconds/3600);
-			return hours + ' hour' + (hours===1? '' : 's') + ' ago'
-		}
-
-		if(seconds > 60) {
-			var minutes = Math.round(seconds/60);
-			return minutes + ' minute' + (minutes===1? '' : 's') + ' ago'
-		}
-
-		return seconds + ' seconds ago';
-	}
+	});
 })();
 
-$$('.slide[data-type="Challenge"]').forEach(function(slide){
+$$('.slide[data-type="Challenge"]').forEach(function(slide) {
 	var minutes = slide.getAttribute('data-duration') || 1,
-	    duration = 60 * minutes,
-	    SVGNamespace = 'http://www.w3.org/2000/svg';
+	    duration = 60 * minutes;
 
-	var animate = $.create({
-		tag: 'animate',
-		namespace: SVGNamespace,
-		attributes: {
-			attributeName: 'stroke-dasharray',
-			values: '0,314.1593%;314.1593%,314.1593%',
-			dur: 2*duration + 's', // No fucking idea why it needs double the time!!
-			begin: 'indefinite',
-			fill: 'freeze'
-		}
+	var video = $.create({
+		tag: "video",
+		src: "videos/" + (slide.getAttribute("data-video") || "hamsters.webm"),
+		preload: "metadata",
+		loop: true
 	});
 
 	var timer = $.create({
-		tag: 'div',
-		properties: {
-			className: 'timer'
-		},
-		attributes: {
-			'data-duration': minutes
+		className: 'timer',
+		'data-duration': minutes,
+		style: {
+			"--duration": minutes * 60
 		},
 		contents: [{
-			tag: 'svg',
-			namespace: SVGNamespace,
-			contents: {
-				tag: 'circle',
-				namespace: SVGNamespace,
-				attributes: {
-					cx: '50%',
-					cy: '50%',
-					r: '25%',
-					"stroke-dasharray": '0,314.1593%'
-				},
-				contents: animate
-			}
-		}, {
 			tag: 'button',
 			contents: 'Go!',
-			properties: {
-				type: 'button',
-				onclick: function(){
-					animate.beginElement();
+			type: 'button',
+			onclick: function(){
+				var running = true;
+				video.play();
+				timer.classList.add('running');
 
-					var running = true;
-					timer.classList.add('running');
+				// var search = new TwitterSearch('#regexplained', details);
+                //
+				// search.onload = function(data) {
+				// 	// Process data
+				// 	var results = data.statuses,
+				// 	    list = $('div', search.details),
+				// 	    summary = $('summary', search.details);
+                //
+				// 	// Fix relative dates for older tweets
+				// 	$$('time', list).forEach(function(time) {
+				// 		time.textContent = TwitterSearch.dateOffset(time.getAttribute('datetime'));
+				// 	});
+                //
+				// 	TwitterSearch.maxId = Math.max(data.search_metadata.max_id, TwitterSearch.maxId);
+                //
+				// 	for (var i=results.length, tweet; tweet = results[--i];) {
+				// 		// Don’t add the same tweets twice
+				// 		// Twitter Search API is fucked
+				// 		var datetime = new Date(tweet.created_at);
+				// 		var offset = new Date() - datetime;
+                //
+				// 		if(!$('#t' + tweet.id, list) && offset < 1000 * 60 * 20) {
+				// 			// Is not already in the list and has been posted in the last 20 minutes
+				// 			var username = tweet.user.screen_name;
+				// 			var datetimeISO = (datetime).toISOString();
+				// 			var id = tweet.id;
+                //
+				// 			$.create('article', {
+				// 				id: 't' + tweet.id,
+				// 				innerHTML: `
+				// 					<img src="${tweet.user.profile_image_url}" />
+				// 					<h1>
+				// 						<a href="http://twitter.com/${username}" target="_blank">@${username}</a>
+				// 						<a href="http://twitter.com/${username}/status/${id}" target="_blank">
+				// 							<time datetime="${datetimeISO}">${TwitterSearch.dateOffset(datetimeISO)}</time>
+				// 						</a>
+				// 					</h1>
+				// 					<p>${tweet.text.replace(/[@#]regexplained/g, '')}</p>
+				// 				`,
+				// 				start: list
+				// 			});
+				// 		}
+				// 	}
+                //
+				// 	summary.innerHTML = $$("article", list).length + ' tweets';
+                //
+				// 	// Schedule next fetch
+				// 	if (running) {
+				// 		setTimeout(function() {
+				// 			search.send();
+				// 		}, 5000);
+				// 	}
+				// }
+                //
+				// search.send();
 
-					var search = new TwitterSearch('#regexplained', details);
-
-					search.onload = function(data) {
-						// Process data
-						var results = data.results,
-						    list = $('div', search.details),
-						    summary = $('summary', search.details);
-
-						for (var i=results.length, tweet; tweet = results[--i];) {
-
-							// Don’t add the same tweets twice
-							// Twitter Search API is fucked
-							if($('#t' + tweet.id, list)) {
-								results.splice(i, 1);
-								continue;
-							}
-
-							$.create('article', {
-								properties: {
-									id: 't' + tweet.id
-								},
-								contents: [{
-									tag: 'img',
-									properties: {
-										src: tweet.profile_image_url
-									}
-								}, {
-									tag: 'h1',
-									contents: [{
-										tag: 'a',
-										properties: {
-											href: 'http://twitter.com/' + tweet.from_user,
-											target: '_blank'
-										},
-										contents: '@' + tweet.from_user
-									}, ' ', {
-										tag: 'a',
-										properties: {
-											href: 'http://twitter.com/' + tweet.from_user + '/status/' + tweet.id,
-											target: '_blank'
-										},
-										contents: {
-											tag: 'time',
-											attributes: {
-												datetime: (new Date(tweet.created_at)).toISOString()
-											}
-										}
-									}]
-								}, {
-									tag: 'p',
-									properties: {
-										innerHTML: tweet.text.replace(/[@#]regexplained/g, '')
-									}
-								}],
-								start: list
-							});
-						}
-
-						// Fix relative dates
-						$$('time', list).forEach(function(time) {
-							time.textContent = TwitterSearch.dateOffset(time.getAttribute('datetime'));
-						});
-
-						summary.innerHTML = (parseInt(summary.innerHTML) || 0) + results.length + ' tweets';
-
-						// Schedule next fetch
-						if(running) {
-							setTimeout(function() {
-								search.send();
-							}, 5000);
-						}
-					}
-
-					search.send();
-
-					setTimeout(function(){
-						// Time’s up!
-						running = false;
-						timer.classList.remove('running');
-
-					}, (duration + 20) * 1000); // +20s to account for the twitter lag
-				}
+				setTimeout(function(){
+					// Time’s up!
+					running = false;
+					video.pause();
+				}, (duration + 25) * 1000); // +25s to account for the twitter lag
 			}
-		}],
+		}, video],
 		inside: slide
 	});
 
@@ -216,3 +180,5 @@ $$('.slide[data-type="Challenge"]').forEach(function(slide){
 		inside: slide
 	});
 });
+
+})(Bliss);

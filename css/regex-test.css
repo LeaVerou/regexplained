@@ -15,11 +15,11 @@
 		transition-property: color;
 		transition-duration: .3s;
 	}
-	
+
 	.regex-test > div.invalid {
 		color: #fbb;
 	}
-	
+
 	.regex-test > div.invalid:before {
 		content: '✖';
 		position: absolute;
@@ -35,7 +35,7 @@
 		color: hsl(30,20%,19%);
 		font: 60%/1 sans-serif;
 	}
-	
+
 		.regex-test > div > div {
 			display: inline-block;
 			position: relative;
@@ -51,12 +51,12 @@
 			outline: none;
 			background: transparent;
 		}
-		
+
 		.regex-test input:hover {
 			outline: 1px dashed hsla(0,0%,100%,.3);
 			outline-offset: -1px;
 		}
-		
+
 		.match.indicator {
 			min-width: 10px;
 			background: rgba(0,0,0,.3);
@@ -67,22 +67,58 @@
 			transition-duration: .2s;
 			transition-property: left, width;
 		}
-		
+
 		.sub.match.indicator {
 			background: rgba(0,0,0,.2);
 		}
-		
+
 		.regex-test h1,
 		.regex-test ul {
 			text-align: left;
 		}
-		
+
 		.regex-test h1 {
-			color: hsl(30,20%,19%);
+			color: hsl(30,20%,15%);
 			font: italic 180% Baskerville, serif;
 			text-shadow: 0 .1rem hsla(0,0%,100%,.3);
 		}
-		
+
 		.regex-test ul {
 			font-size: 90%;
 		}
+
+.regex-test .time-taken {
+	position: absolute;
+	top: 1em;
+	right: 1em;
+	display: inline-block;
+	padding: .2em .5em;
+	border-radius: .2em;
+	background: hsla(50, 100%, 50%, .3) url(../img/noise.png);
+	font-size: 60%;
+	transition: .5s;
+	transition-property: background, color, font-size;
+	border: 1px solid rgba(0,0,0,.4);
+}
+
+	.regex-test .time-taken::before {
+		content: "⏱ ";
+		mix-blend-mode: multiply;
+	}
+
+	.regex-test .time-taken.slow {
+		background-color: hsla(0, 90%, 40%, .8);
+		font-weight: bold;
+	}
+
+	.regex-test .time-taken.very-slow {
+		background-color: hsla(0, 90%, 30%, .9);
+		font-weight: bold;
+		font-size: 80%;
+	}
+
+	.regex-test .time-taken.fast {
+		background-color: hsla(80, 80%, 50%, .3);
+		color: hsl(80, 70%, 17%);
+		text-shadow: none;
+	}

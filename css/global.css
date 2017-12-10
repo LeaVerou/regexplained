@@ -1,3 +1,10 @@
+:root {
+	--color-green: hsl(75, 70%, 60%);
+	--color-brown: hsl(30,20%,30%);
+	--color-beige: hsl(30,20%,80%);
+	--color-ciel: #abc;
+}
+
 * {
 	margin: 0;
 	color: inherit;
@@ -6,9 +13,10 @@
 }
 
 body {
-	background: hsl(30,20%,30%) url(../img/noise.png);
+	background: var(--color-brown) url(../img/noise.png);
 	color: white;
 	-webkit-font-smoothing: antialiased; /* fix for WebKit inconsistency */
+	tab-size: 4;
 }
 
 code, pre {
@@ -46,4 +54,8 @@ button:active,
 a {
 	text-decoration: none;
 	color: inherit;
+}
+
+em {
+	font-style: italic;
 }
