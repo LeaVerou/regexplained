@@ -3,42 +3,13 @@
 	src: url(../img/leaverou.otf);
 }
 
-.lea {
-	background: url(../img/lea.png) bottom left no-repeat,
-		 hsl(200, 30%, 15%) radial-gradient(10% 60%, hsl(200, 30%, 15%) 10%, black);
+#hi figcaption {
+	font-family: "Marker Felt";
 }
 
-	.lea > h1 {
-		position: absolute;
-		max-width: 4em;
-		padding: 1em;
-		margin-left: .5em;
-		background: white;
-		color: hsl(200, 30%, 15%);
-		text-shadow: none;
-		font-size: 80%;
-		line-height: 1;
-		font-weight: normal;
-		text-align: center;
-		text-transform: uppercase;
-		outline: 2px dotted;
-		outline-offset: -.5em;
-	}
-
-		.lea > h1 > .symbol {
-			font-family: LeaVerou;
-			font-size: 400%;
-		}
-
-		.lea > h1 > .first-name {
-			font-size: 200%;
-		}
-
-	.lea > ul {
-		margin: -.5em 0 -.5em 260px;
-		font-size: 70%;
-		line-height: 1.5;
-	}
+#lesbian {
+	background-color: transparent;
+}
 
 ul.links a:after {
 	content: ' ' attr(href);
@@ -224,8 +195,24 @@ li.invalid.delayed.displayed {
 
 	.slide[data-type="Challenge"] > h1,
 	.slide[data-type="Challenge"] > p {
-		margin-right: 100vmin;
+		margin-right: 99vmin;
 	}
+
+	.slide[data-type="Challenge"] p code {
+		background: rgba(0,0,0,.5);
+		white-space: nowrap;
+		padding: .2em .3em;
+		border-radius: .2em;
+	}
+
+	.slide[data-type="Challenge"] p .not {
+		color: red;
+	}
+
+		.slide[data-type="Challenge"] p .not::before {
+			content: "\A";
+			white-space: pre;
+		}
 
 .timer {
 	float: right;

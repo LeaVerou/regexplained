@@ -28,6 +28,21 @@
 
 
 <section id="introduction">
+	<section id="hi" class="inverse slide dont-resize darker hi">
+		<figure class="delayed">
+			<img src="../talks/shared/img/me-pirate.png" alt="Picture of me" title="Pirate illustration by Lorenzo Grandi http://www.lorenzograndi.it/" />
+			<figcaption style="font-size: 240%">Привет, я Лиа</figcaption>
+		</figure>
+	</section>
+
+	<section class="inverse slide dont-resize darker hi" id="lesbian" data-steps="2">
+		<div>
+			<p class="funfact">#funfact</p>
+			<p>I grew up in Lesbos, Greece</p>
+			<p>…which technically makes me <strong>geographically Lesbian</strong></p>
+		</div>
+	</section>
+
 	<section class="top-heavy slide dont-resize" id="projects">
 		<ul class="plain">
 			<li><a href="http://mavo.io/" style="background-image: url(../talks/shared/img/project-mavo.png)">Mavo</a></li>
@@ -58,6 +73,10 @@
 			★★★★★ on Amazon
 		</a>
 	</section>
+
+	<article class="image slide" style="background: url(img/russian-csssecrets.jpg) center/contain no-repeat white">
+
+	</article>
 
 	<section class="top-heavy image slide" id="mit">
 		<h1><strong>2014&thinsp;–</strong> Haystack Group, MIT CSAIL</h1>
@@ -142,7 +161,9 @@
 			<li>Regexes match anywhere, unless restricted</li>
 			<li>Matches cannot intersect</li>
 			<li>Case sensitive by default, use the <code>i</code> flag to change</li>
+			<li>Unicode characters by <code>\uXXXX</code></li>
 		</ul>
+		<p class="hint">\u2665 for ♥</p>
 	</section>
 
 	<article class="slide" title="Flags">
@@ -197,15 +218,41 @@
 		<ul class="delayed-children persistent">
 			<li>| for alternatives</li>
 			<li>Group with parenthses (Useful for alternatives or quantifiers)</li>
+			<li>Alternatives can be empty</li>
+			<li>Order matters!</li>
 		</ul>
-		<p class="hint">Show that alternatives can be empty</p>
 	</section>
 
 	<section class="slide" data-type="Challenge" data-duration="1" data-video="hamsters.webm" style="--position: right">
 		<h1>Test Challenge</h1>
-		<p>Examples:
-			This will be a list of strings you have to match
+		<p>
+			Here will be a list of strings you have to match
 		</p>
+	</section>
+
+	<section class="slide dont-resize" data-type="Challenge" data-duration="1" data-video="hamsters.webm" style="--position: right">
+		<h1>Font & Image MIME types</h1>
+		<p>
+			<code>image/png</code>
+			<code>image/jpeg</code>
+			<code>image/gif</code>
+			<code>font/ttf</code>
+			<code>font/otf</code>
+			<code>font/woff</code>
+			<code>font/woff2</code>
+			<span class="not">not</span> <code>image/ttf</code> <code>font/gif</code> etc
+		</p>
+	</section>
+
+	<section class="narrow slide language-javascript" data-type="Solution">
+		<h1 style="white-space: nowrap;">Font & Image MIME types</h1>
+		<pre><code>// Wrong! Matches image/ttf, font/gif etc
+/(image|font)\/(png|jpeg|gif|ttf|otf|woff|woff2)/</code></pre>
+		<pre class="delayed persistent"><code>// Correct, but could be shorter
+/image\/(png|jpeg|gif)|font\/ttf|otf|woff|woff2)/</code></pre>
+		<pre class="delayed persistent"><code>/image\/(png|jpeg|gif)|font\/(ttf|otf|woff(2|))/</code></pre>
+		<pre class="delayed persistent"><code>// Now that’s going a bit too far…
+/image\/(png|jpeg|gif)|font\/(t|o)tf|woff(|2))/</code></pre>
 	</section>
 
 	<!-- <article class="refactoring slide language-js">
@@ -250,8 +297,9 @@
 		<h1>What we learned</h1>
 		<ul class="delayed-children persistent">
 			<li>{n} = n times</li>
-			<li>{n,} = at least n times</li>
 			<li>{m,n} = at least m times but no more than n times</li>
+			<li>{m,} = at least m times</li>
+			<li>Quantifiers are greedy</li>
 		</ul>
 		<p class="hint">(ab){n}, a{2,5} and caaaaaaaaaat</p>
 	</section>
@@ -262,6 +310,24 @@
 			<li>* = {0,} , + = {1,} , ? = {0,1}</li>
 			<li>Careful of accidental zero length matches!</li>
 		</ul>
+	</section>
+
+	<section class="slide" data-type="Challenge" data-duration="1">
+		<h1>Email</h1>
+		<p>
+			<code>lea@verou.me</code>,
+			<code>leaverou@mit.edu</code>,
+			<code>foo@google.co.jp</code>,
+			<code>Лиа@Веру.рф</code>,
+			<code>λία@βέρου.ελ</code>,
+			<code>me@lea.moscow</code>
+		</p>
+	</section>
+
+	<section class="narrow slide" data-type="Solution">
+		<h1>Email</h1>
+		<pre><code class="language-javascript">// Yes, it’s ok to be lax!
+/.+@.+\..+/</code></pre>
 	</section>
 
 	<section class="regex-test slide" data-pattern="<.+>" data-test="<p>foo</p>" title="Greediness">
@@ -285,7 +351,7 @@
 
 	<section class="slide" data-type="Challenge" data-duration="1">
 		<h1>Hex color</h1>
-		<p>Examples:
+		<p>
 			<code>#abc</code>, <code>#f00</code>, <code>#BADA55</code>, <code>#C0FFEE</code>
 		</p>
 	</section>
@@ -320,7 +386,7 @@
 	<section class="slide" data-type="Challenge" data-duration="2">
 		<h1>Number</h1>
 		<p>Without exponent or digit separators</p>
-		<p>Examples:
+		<p>
 			<code>-1</code>, <code>.05</code>, <code>+1000</code>, <code>3.1415926535</code>, <code>42.</code>
 		</p>
 	</section>
@@ -344,7 +410,8 @@
 				<code>\D</code> = <code>[^\d]</code>,
 				<code>\S</code> = <code>[^\s]</code>
 			</li>
-			<li>Even the dot is a character class: <code>.</code> = <code>[^\r\n]</code>
+			<li>Even the dot is a character class: <code>.</code> = <code>[^\r\n\u2028\u2029]</code></li>
+			<li>DotAll alternatives: <code>[^]</code>, <code>[\S\s]</code>, <code>[\W\w]</code>, <code>[\D\d]</code></li>
 		</ul>
 	</section>
 
@@ -357,6 +424,16 @@
     return str.replace(/&lt;[^>]+>/g, '');
 }</code></pre>
 		<p>Warning: Will fail in edge cases</p>
+	</section>
+
+	<section class="regex-test slide" data-pattern="\p{Alphabetic}" data-test="Веру Лиа" data-flags="gu" title="Unicode Property Escapes">
+		<h1>What we learned</h1>
+		<ul class="delayed-children persistent">
+			<li>Syntax: <code>\p{<em>UNICODE_PROPERTY</em>=<em>VALUE</em>}</code>. Needs <code>u</code> flag.</li>
+			<li>When Unicode Property is <code>General_Category</code> it can be omitted.</li>
+			<li>Experimental, <a href="https://github.com/tc39/proposal-regexp-unicode-property-escapes">proposal in Stage 3</a>, implemented in Chrome & Safari</li>
+		</ul>
+		<p class="hint">Script=Cyrillic</p>
 	</section>
 
 	<section class="regex-test slide" data-pattern="(Java|ECMA)Script" data-test="JavaScript" title="Capturing">
@@ -379,7 +456,7 @@
 	<section class="slide" data-type="Challenge" data-duration="2">
 		<h1>ISO 8601 Dates</h1>
 		<p>Just dates, no time or timezone information</p>
-		<p>Examples:
+		<p>
 			<code>2012-12-12</code>, <code>1986-06-13</code>
 		</p>
 	</section>
@@ -482,9 +559,9 @@ removeClass(element, "toolbar"); // "item-"</code></pre>
 
 	<section class="slide" data-type="Challenge" data-duration="2">
 		<h1>Correctly Nested Parens</h1>
-		<p>Examples:
+		<p>
 			<code>()</code>, <code>(())()</code>, <code>(()()())</code>, <code>((((((()))))))</code>
-			<br><strong style="color:red">not</strong> <code>()(</code>, <code>)</code>, <code>((((((()))</code>
+			<strong class="not">not</strong> <code>()(</code>, <code>)</code>, <code>((((((()))</code>
 		</p>
 	</section>
 

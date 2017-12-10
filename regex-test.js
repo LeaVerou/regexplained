@@ -27,7 +27,9 @@ var _ = self.RegExpTester = $.Class({
  			tabIndex: 2
 		});
 
-		this.flagsContainer = $.create('span', this.flags);
+		this.flagsContainer = $.create('span', {
+			textContent: this.flags
+		});
 
 		this.testerContainer = $.create({
 			className: 'tester' + (initialPattern.test(initialTest)? '' : ' invalid'),
@@ -101,7 +103,9 @@ var _ = self.RegExpTester = $.Class({
 
 			this.style.width = _.getCh(this);
 
-			me.test();
+			me.displayTimeTaken();
+
+			setTimeout(() => me.test(), 20);
 		});
 
 		if(this.embedded = container.classList.contains('slide')) {
@@ -179,13 +183,14 @@ var _ = self.RegExpTester = $.Class({
 
 	displayTimeTaken: function(timeTaken) {
 		if (timeTaken) {
+			this.timeIndicator.classList.remove("in-progress");
 			this.timeIndicator.innerHTML = _.formatDuration(timeTaken);
 			this.timeIndicator.classList.toggle("slow", timeTaken > 10);
 			this.timeIndicator.classList.toggle("very-slow", timeTaken > 100);
 			this.timeIndicator.classList.toggle("fast", timeTaken < 1);
 		}
 		else {
-			this.timeIndicator.innerHTML = "";
+			this.timeIndicator.classList.add("in-progress");
 		}
 	},
 
@@ -305,7 +310,6 @@ var _ = self.RegExpTester = $.Class({
 		getCh: function(input) { return (input.value.length || .2) + 'ch'; },
 
 		formatDuration: function(ms) {
-			var decimals = 0;
 			var unit = "ms";
 
 			if (ms >= 1000) {
@@ -313,12 +317,8 @@ var _ = self.RegExpTester = $.Class({
 				unit = "s";
 			}
 
-			if (ms < 10) {
-				decimals = 2;
-			}
-
 			return ms.toLocaleString("en-us", {
-				maximumFractionDigits: decimals
+				maximumFractionDigits: ms < 10? 2 : 1
 			}) + unit;
 		}
 	}

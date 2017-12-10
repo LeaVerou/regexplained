@@ -96,14 +96,18 @@
 	border-radius: .2em;
 	background: hsla(50, 100%, 50%, .3) url(../img/noise.png);
 	font-size: 60%;
+	line-height: normal;
 	transition: .5s;
 	transition-property: background, color, font-size;
-	border: 1px solid rgba(0,0,0,.4);
+	border: 1px solid rgba(0,0,0,.2);
+	box-shadow: 0 .05em .3em rgba(0,0,0,.3);
 }
 
 	.regex-test .time-taken::before {
 		content: "⏱ ";
 		mix-blend-mode: multiply;
+		text-shadow: none;
+		color: white;
 	}
 
 	.regex-test .time-taken.slow {
@@ -120,5 +124,11 @@
 	.regex-test .time-taken.fast {
 		background-color: hsla(80, 80%, 50%, .3);
 		color: hsl(80, 70%, 17%);
+		text-shadow: 0 .1rem hsla(0,0%,100%,.3);
+	}
+
+	.regex-test .time-taken.in-progress {
+		color: transparent;
 		text-shadow: none;
+		transition: none;
 	}
