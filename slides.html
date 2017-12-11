@@ -25,8 +25,6 @@
 	<p class="attribution">By Lea Verou (@LeaVerou)</p>
 </header>
 
-
-
 <section id="introduction">
 	<section id="hi" class="inverse slide dont-resize darker hi">
 		<figure class="delayed">
@@ -97,6 +95,8 @@
 	</div>
 </section>
 
+<article class="image slide" style="background-image: url(img/scaredcat.jpg)" title="Fear"></article>
+
 <section class="image slide" style="background-image: url(img/strings.jpg)" data-source="http://www.flickr.com/photos/gargi/3010324017/">
 	<dl class="caption">
 		<dt>Regular expressions:</dt>
@@ -119,9 +119,9 @@
 
 <section class="narrow slide">
 	<pre><code class="language-javascript">"pâté".normalize("NFD").replace(/[\u0300-\u036f]/g, "") // "pate"</code></pre>
-	<pre><code class="language-markup">&lt;input name="zip" pattern="\d{5}" /> </code></pre>
 	<pre><code class="language-javascript">'lea@verou.me'.match(/(\w+)@/)[1] // "lea"</code></pre>
 	<pre><code class="language-javascript">code.replace(/ {4}/g, '\t'); // fix broken indentation</code></pre>
+	<pre><code class="language-markup">&lt;input name="zip" pattern="\d{5}" /> </code></pre>
 	<p>Also: text editors, IDEs, command line tools (grep, etc), databases, and more</p>
 </section>
 
@@ -221,14 +221,27 @@
 			<li>Alternatives can be empty</li>
 			<li>Order matters!</li>
 		</ul>
+		<p class="hint">(c|b|f|)at|dog, do(|g) for order</p>
 	</section>
 
-	<section class="slide" data-type="Challenge" data-duration="1" data-video="hamsters.webm" style="--position: right">
+	<section class="slide" data-type="Challenge" data-duration="1" data-video="kitten.mp4" style="--position: right">
 		<h1>Test Challenge</h1>
 		<p>
-			Here will be a list of strings you have to match
+			<code>fizz</code>
+			<code>buzz</code>
+			<code>fizzbuzz</code>
 		</p>
 	</section>
+
+	<article class="narrow slide language-javascript" data-type="Solution">
+		<h1>Fizzbuzz</h1>
+
+		<pre><code>// Matches everything, including ""
+/(fizz|)(buzz|)/</code></pre>
+		<pre class="delayed persistent"><code>// Correct but inelegant
+/(fizzbuzz|fizz|buzz)/</code></pre>
+		<pre class="delayed persistent"><code>/(fizz(buzz|)|buzz)/</code></pre>
+	</article>
 
 	<section class="slide dont-resize" data-type="Challenge" data-duration="1" data-video="hamsters.webm" style="--position: right">
 		<h1>Font & Image MIME types</h1>
@@ -251,7 +264,7 @@
 		<pre class="delayed persistent"><code>// Correct, but could be shorter
 /image\/(png|jpeg|gif)|font\/ttf|otf|woff|woff2)/</code></pre>
 		<pre class="delayed persistent"><code>/image\/(png|jpeg|gif)|font\/(ttf|otf|woff(2|))/</code></pre>
-		<pre class="delayed persistent"><code>// Now that’s going a bit too far…
+		<pre class="delayed persistent"><code>// Please don’t
 /image\/(png|jpeg|gif)|font\/(t|o)tf|woff(|2))/</code></pre>
 	</section>
 
@@ -268,7 +281,7 @@
 	</article> -->
 
 	<section class="regex-test slide" data-pattern="1.5" data-test="1.5" title="The dot metacharacter">
-		<p class="hint">/1.5/ show it matches 21056 etc</p>
+		<p class="hint">/1.5/ show it matches 21056 etc, show two are needed to match emojis</p>
 		<h1>What we learned</h1>
 		<ul class="delayed-children persistent">
 			<li>Dot (.) matches anything, except line breaks</li>
@@ -301,7 +314,7 @@
 			<li>{m,} = at least m times</li>
 			<li>Quantifiers are greedy</li>
 		</ul>
-		<p class="hint">(ab){n}, a{2,5} and caaaaaaaaaat</p>
+		<p class="hint">(ab){n}, a{2,5} and caaaaaaaaaat, parentheses always needed for emoji</p>
 	</section>
 
 	<section class="regex-test slide" data-pattern="bo{0,}" data-test="boooo" title="Quantifier shortcuts">
@@ -312,7 +325,7 @@
 		</ul>
 	</section>
 
-	<section class="slide" data-type="Challenge" data-duration="1">
+	<section class="slide" data-type="Challenge" data-duration="1" data-video="munchkin.mp4">
 		<h1>Email</h1>
 		<p>
 			<code>lea@verou.me</code>,
@@ -330,16 +343,21 @@
 /.+@.+\..+/</code></pre>
 	</section>
 
+	<section class="image slide" id="precise-impractical" data-source="regular-expressions.info/email.html">
+		<code>(?:[a-z0-9!#$%&amp;'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&amp;'*+/=?^_`{|}~-]+)*|"(?:[\x01-\x08\x0b\x0c\x0e-\x1f\x21\x23-\x5b\x5d-\x7f]|\\[\x01-\x09\x0b\x0c\x0e-\x7f])*")@(?:(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?|\[(?:(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.){3}(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?|[a-z0-9-]*[a-z0-9]:(?:[\x01-\x08\x0b\x0c\x0e-\x1f\x21-\x5a\x53-\x7f]|\\[\x01-\x09\x0b\x0c\x0e-\x7f])+)\])</code>
+		<h1 class="caption">Practicality > Precision</h1>
+	</section>
+
 	<section class="regex-test slide" data-pattern="<.+>" data-test="<p>foo</p>" title="Greediness">
 		<h1>What we learned</h1>
 		<ul class="delayed-children persistent">
 			<li>Quantifiers are greedy</li>
-			<li>Make them lazy by adding a ? after them</li>
+			<li>Lazify them by adding a ? after them</li>
 		</ul>
 		<p class="hint">Delete last > to show what happens</p>
 	</section>
 
-	<section class="regex-test slide" data-pattern="[bdfglmprty]uck" title="Character classes">
+	<section class="regex-test slide" data-pattern="(b|d|f|g|l|m|p|r|t|y)uck" title="Character classes">
 		<h1>What we learned</h1>
 		<ul class="delayed-children persistent">
 			<li>Brackets = set, range or a combination of both</li>
@@ -349,7 +367,7 @@
 		<p class="hint">in Unicode order</p>
 	</section>
 
-	<section class="slide" data-type="Challenge" data-duration="1">
+	<section class="slide" data-type="Challenge" data-duration="1" data-video="confused-kitten.webm">
 		<h1>Hex color</h1>
 		<p>
 			<code>#abc</code>, <code>#f00</code>, <code>#BADA55</code>, <code>#C0FFEE</code>
@@ -383,11 +401,11 @@
 }</code></pre>
 	</section>
 
-	<section class="slide" data-type="Challenge" data-duration="2">
+	<section class="slide" data-type="Challenge" data-duration="2" data-video="racoon.webm">
 		<h1>Number</h1>
 		<p>Without exponent or digit separators</p>
 		<p>
-			<code>-1</code>, <code>.05</code>, <code>+1000</code>, <code>3.1415926535</code>, <code>42.</code>
+			<code>-1</code> <code>.05</code> <code>+1000</code> <code>3.1415926535</code> <code>42.</code>
 		</p>
 	</section>
 
@@ -426,7 +444,7 @@
 		<p>Warning: Will fail in edge cases</p>
 	</section>
 
-	<section class="regex-test slide" data-pattern="\p{Alphabetic}" data-test="Веру Лиа" data-flags="gu" title="Unicode Property Escapes">
+	<section class="regex-test slide" data-pattern="\p{Script=Cyrillic}+" data-test="Веру Лиа" data-flags="gu" title="Unicode Property Escapes">
 		<h1>What we learned</h1>
 		<ul class="delayed-children persistent">
 			<li>Syntax: <code>\p{<em>UNICODE_PROPERTY</em>=<em>VALUE</em>}</code>. Needs <code>u</code> flag.</li>
@@ -453,7 +471,7 @@
 		</ul>
 	</section>
 
-	<section class="slide" data-type="Challenge" data-duration="2">
+	<section class="slide" data-type="Challenge" data-duration="2" data-video="goats.webm">
 		<h1>ISO 8601 Dates</h1>
 		<p>Just dates, no time or timezone information</p>
 		<p>
@@ -557,7 +575,7 @@ removeClass(element, "toolbar"); // "item-"</code></pre>
 		<p class="credit">Regex credit: Steven Levithan</p>
 	</section>
 
-	<section class="slide" data-type="Challenge" data-duration="2">
+	<section class="slide" data-type="Challenge" data-duration="2" data-video="maru.webm">
 		<h1>Correctly Nested Parens</h1>
 		<p>
 			<code>()</code>, <code>(())()</code>, <code>(()()())</code>, <code>((((((()))))))</code>
@@ -583,11 +601,6 @@ removeClass(element, "toolbar"); // "item-"</code></pre>
 	<header class="slide" id="best-practices">
 		<h1>Best Practices</h1>
 	</header>
-
-	<section class="image slide" id="precise-impractical" data-source="regular-expressions.info/email.html">
-		<code>(?:[a-z0-9!#$%&amp;'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&amp;'*+/=?^_`{|}~-]+)*|"(?:[\x01-\x08\x0b\x0c\x0e-\x1f\x21\x23-\x5b\x5d-\x7f]|\\[\x01-\x09\x0b\x0c\x0e-\x7f])*")@(?:(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?|\[(?:(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.){3}(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?|[a-z0-9-]*[a-z0-9]:(?:[\x01-\x08\x0b\x0c\x0e-\x1f\x21-\x5a\x53-\x7f]|\\[\x01-\x09\x0b\x0c\x0e-\x7f])+)\])</code>
-		<h1 class="caption">Precision vs practicality</h1>
-	</section>
 
 	<section class="top-heavy image slide" style="background-image: url(img/pregnancy-test.jpg);" data-source="http://www.flickr.com/photos/mandaloo/4369363690/">
 		<h1>False positives vs false negatives</h1>
@@ -811,11 +824,26 @@ null</code></pre>
 	</section>
 </section> -->
 
+<article class="slide" id="video-credits">
+	<h1>Video Credits</h1>
+
+	<ul class="plain">
+		<li><a href="https://www.youtube.com/watch?v=IwtdIXWGry4">Melanie Raccoon riding bike-side angle</a></li>
+		<li><a href="https://twitter.com/AMAZlNGNATURE/status/938663598263484416">Living the dream</a></li>
+		<li><a href="https://www.youtube.com/watch?v=mt084vYqbnY">Hamster Has Epic Fail on Running Wheel</a></li>
+		<li><a href="https://www.youtube.com/watch?v=RN50R3gycgo&feature=youtu.be&t=7">Goat Kid Pajama Party</a></li>
+		<li><a href="https://www.youtube.com/watch?v=xdhLQCYQ-nQ">大きな箱とねこ。</a></li>
+		<li><a href="https://twitter.com/videocats/status/940154890004942848">Shiba Munchkin</a></li>
+		<li><a href="https://www.youtube.com/watch?v=HECa3bAFAYk">Fluffy kitten is confused</a></li>
+		<li><a href="https://twitter.com/videocats/status/938482862680133632">Learning to drink</a></li>
+	</ul>
+</article>
+
 <article class="slide" id="thankyou" title="Thank you!" data-credits="gifimage.net, giphy.com"></article>
 
 <footer class="slide dont-resize">
 	<img src="../talks/shared/img/mark.svg" class="logo" />
-	<h1>Thank you!</h1>
+	<h1>Спасибо!</h1>
 	<img src="../talks/css-variables/img/stickers.jpg" class="stickers delayed" alt="">
 	<p class="stickercaption delayed">Want one? Just ask!---></p>
 	<ul class="plain">

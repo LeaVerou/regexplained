@@ -289,22 +289,26 @@ li.invalid.delayed.displayed {
 		display: none;
 	}
 
-	#precise-impractical {
-		background: 0;
-	}
+.slide[data-type="Solution"] pre {
+	font-size: 120%;
+}
 
-		#precise-impractical > code {
-			position: absolute;
-			left: 0; right: 0; top: 0;
-			padding: .4em;
-			color: hsl(25,20%,20%);
-			text-shadow: 0 .1rem hsla(0,0%,100%,.3);
-			font-size: 4vw;
-			line-height: 1.3;
-			font-weight: bold;
-			word-wrap: break-word;
-			word-break: break-all;
-		}
+#precise-impractical {
+	background: 0;
+}
+
+	#precise-impractical > code {
+		position: absolute;
+		left: 0; right: 0; top: 0;
+		padding: .4em;
+		color: hsl(25,20%,20%);
+		text-shadow: 0 .1rem hsla(0,0%,100%,.3);
+		font-size: 4vw;
+		line-height: 1.3;
+		font-weight: bold;
+		word-wrap: break-word;
+		word-break: break-all;
+	}
 
 .error {
 	color: #f44;
@@ -573,3 +577,19 @@ footer.slide {
 	#lookahead-hacks pre + pre:last-of-type {
 		margin-top: 0;
 	}
+
+#video-credits ul {
+	columns: 2;
+}
+
+	#video-credits li {
+		margin-bottom: .5em;
+	}
+
+		#video-credits a::after {
+			content: attr(href);
+			display: block;
+			color: black;
+			font-size: 55%;
+			text-shadow: none;
+		}

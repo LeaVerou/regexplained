@@ -80,7 +80,7 @@ var _ = self.RegExpTester = $.Class({
 		});
 
 		container.addEventListener('keydown', function(evt) {
-			if (evt.keyCode === 38 || evt.keyCode === 40) {
+			if (!evt.altKey && (evt.keyCode === 38 || evt.keyCode === 40)) {
 				evt.stopPropagation();
 				evt.preventDefault();
 
@@ -98,10 +98,15 @@ var _ = self.RegExpTester = $.Class({
 
 		$.bind([this.input, this.tester], 'input', function(){
 			var div = this.parentNode.parentNode;
+			var length = [...this.value].length;
 
-			div.style.fontSize = _.fontSize(this.value.length) + '%';
+			div.style.fontSize = _.fontSize(length) + '%';
 
-			this.style.width = _.getCh(this);
+			this.style.width = (length || .2) + "ch";
+
+			if (this.scrollWidth > 0) {
+				this.style.width = this.scrollWidth + "px";
+			}
 
 			me.displayTimeTaken();
 
@@ -307,8 +312,6 @@ var _ = self.RegExpTester = $.Class({
 	},
 
 	static: {
-		getCh: function(input) { return (input.value.length || .2) + 'ch'; },
-
 		formatDuration: function(ms) {
 			var unit = "ms";
 
