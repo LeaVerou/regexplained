@@ -198,7 +198,8 @@ li.invalid.delayed.displayed {
 		margin-right: 99vmin;
 	}
 
-	.slide[data-type="Challenge"] p code {
+	.slide[data-type="Challenge"] p code,
+	.match-examples code {
 		background: rgba(0,0,0,.5);
 		white-space: nowrap;
 		padding: .2em .3em;

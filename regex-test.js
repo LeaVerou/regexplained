@@ -102,7 +102,7 @@ var _ = self.RegExpTester = $.Class({
 
 			div.style.fontSize = _.fontSize(length) + '%';
 
-			this.style.width = (length || .2) + "ch";
+			this.style.width = .2 + "ch";
 
 			if (this.scrollWidth > 0) {
 				this.style.width = this.scrollWidth + "px";

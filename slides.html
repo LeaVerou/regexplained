@@ -105,6 +105,15 @@
 </section>
 
 <section class="slide syntax-breakdown">
+	<h1><code style="font-size: 7vw;">
+		<span title="Starts with a&nbsp;slash">/</span>
+		<span title="Pattern (what to match)" data-index="1">&amp;(lt|gt|amp);</span>
+		<span title="Ends with a&nbsp;slash">/</span>
+		<span title="Flags (combination of g, i, m, y, u, s)" data-index="1">gi</span>
+	</code></h1>
+</section>
+
+<section class="slide syntax-breakdown">
 	<h1><code style="font-size: 5.8vw;">/
 		<span title="Beginning of string">^</span>
 		Reg(ex
@@ -126,14 +135,7 @@
 </section>
 
 <section>
-	<section class="slide syntax-breakdown">
-		<h1><code style="font-size: 7vw;">
-			<span title="Starts with a&nbsp;slash">/</span>
-			<span title="Pattern (what to match)" data-index="1">&amp;(lt|gt|amp);</span>
-			<span title="Ends with a&nbsp;slash">/</span>
-			<span title="Flags (combination of g, i, m, y, u, s)" data-index="1">gi</span>
-		</code></h1>
-	</section>
+
 
 	<!-- <section class="slide" id="methods">
 		<h1>RegExp aware methods</h1>
@@ -163,7 +165,7 @@
 			<li>Case sensitive by default, use the <code>i</code> flag to change</li>
 			<li>Unicode characters by <code>\uXXXX</code></li>
 		</ul>
-		<p class="hint">\u2665 for ♥</p>
+		<p class="hint">\u2665 for ♥, emojis, rainbow matches rainbow flag emoji</p>
 	</section>
 
 	<article class="slide" title="Flags">
@@ -243,7 +245,7 @@
 		<pre class="delayed persistent"><code>/(fizz(buzz|)|buzz)/</code></pre>
 	</article>
 
-	<section class="slide dont-resize" data-type="Challenge" data-duration="1" data-video="hamsters.webm" style="--position: right">
+	<!-- <section class="slide dont-resize" data-type="Challenge" data-duration="1" data-video="hamsters.webm" style="--position: right">
 		<h1>Font & Image MIME types</h1>
 		<p>
 			<code>image/png</code>
@@ -266,19 +268,38 @@
 		<pre class="delayed persistent"><code>/image\/(png|jpeg|gif)|font\/(ttf|otf|woff(2|))/</code></pre>
 		<pre class="delayed persistent"><code>// Please don’t
 /image\/(png|jpeg|gif)|font\/(t|o)tf|woff(|2))/</code></pre>
+	</section> -->
+
+	<section class="slide" data-type="Challenge" data-duration="2" data-video="hamsters.webm">
+		<h1>Emojis with woman</h1>
+		<p style="font-size: 200%;">
+			<code>👩</code>
+			<code>👩‍💼</code>
+			<code>👪</code>
+			<code>👨‍👩‍👦‍👦</code>
+			<code>👩‍👦‍👦</code>
+			<code>👩‍👧</code>
+			<code>👩‍👦</code>
+			<code>👩‍👩‍👦‍👦</code>
+			<code>👩‍👩‍👦</code>
+			<code>👩‍👩‍👧</code>
+			<code>💏</code>
+			<code>👩‍❤️‍💋‍👩</code>
+			<strong class="not">not</strong>
+			<code>👨‍👧</code>
+			<code>👨‍👨‍👧</code>
+			<code>👨‍👨‍👦</code>
+			<code>👨‍❤️‍👨</code>
+		</p>
 	</section>
 
-	<!-- <article class="refactoring slide language-js">
-		<ul class="js-vs-regex">
-			<li>
-				<pre><code>while(index < str.length) {
-	str.in
-}</code></pre>
-				<strong>&lt;</strong>
-				<code></code>
-			</li>
-		</ul>
-	</article> -->
+	<section class="narrow slide" data-type="Solution">
+		<h1>Emojis with woman</h1>
+		<pre><code class="language-javascript">// Ewww, just stop
+/👩|👩‍💼|👪|👩‍👦‍👦|👩‍👧|👩‍👦|👩‍👩‍👦‍👦|👩‍👩‍👦|👩‍👩‍👧|👨‍👩‍👦‍👦|.../</code></pre>
+		<pre class="delayed persistent"><code class="language-javascript">/👩/ // Wrong, doesn’t include 👪 and 💏!</code></pre>
+		<pre class="delayed persistent"><code class="language-javascript">/👩|👪|💏/</code></pre>
+	</section>
 
 	<section class="regex-test slide" data-pattern="1.5" data-test="1.5" title="The dot metacharacter">
 		<p class="hint">/1.5/ show it matches 21056 etc, show two are needed to match emojis</p>
@@ -312,7 +333,6 @@
 			<li>{n} = n times</li>
 			<li>{m,n} = at least m times but no more than n times</li>
 			<li>{m,} = at least m times</li>
-			<li>Quantifiers are greedy</li>
 		</ul>
 		<p class="hint">(ab){n}, a{2,5} and caaaaaaaaaat, parentheses always needed for emoji</p>
 	</section>
@@ -323,29 +343,6 @@
 			<li>* = {0,} , + = {1,} , ? = {0,1}</li>
 			<li>Careful of accidental zero length matches!</li>
 		</ul>
-	</section>
-
-	<section class="slide" data-type="Challenge" data-duration="1" data-video="munchkin.mp4">
-		<h1>Email</h1>
-		<p>
-			<code>lea@verou.me</code>,
-			<code>leaverou@mit.edu</code>,
-			<code>foo@google.co.jp</code>,
-			<code>Лиа@Веру.рф</code>,
-			<code>λία@βέρου.ελ</code>,
-			<code>me@lea.moscow</code>
-		</p>
-	</section>
-
-	<section class="narrow slide" data-type="Solution">
-		<h1>Email</h1>
-		<pre><code class="language-javascript">// Yes, it’s ok to be lax!
-/.+@.+\..+/</code></pre>
-	</section>
-
-	<section class="image slide" id="precise-impractical" data-source="regular-expressions.info/email.html">
-		<code>(?:[a-z0-9!#$%&amp;'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&amp;'*+/=?^_`{|}~-]+)*|"(?:[\x01-\x08\x0b\x0c\x0e-\x1f\x21\x23-\x5b\x5d-\x7f]|\\[\x01-\x09\x0b\x0c\x0e-\x7f])*")@(?:(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?|\[(?:(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.){3}(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?|[a-z0-9-]*[a-z0-9]:(?:[\x01-\x08\x0b\x0c\x0e-\x1f\x21-\x5a\x53-\x7f]|\\[\x01-\x09\x0b\x0c\x0e-\x7f])+)\])</code>
-		<h1 class="caption">Practicality > Precision</h1>
 	</section>
 
 	<section class="regex-test slide" data-pattern="<.+>" data-test="<p>foo</p>" title="Greediness">
@@ -419,7 +416,7 @@
 	</section>
 
 	<section class="regex-test slide" data-pattern="[\u0001-/:-@[-^`{-\uffff]" data-test="afz" title="Negated character classes">
-		<!-- [\u0001-/:-@[-^`{-\uffff] -->
+		<!-- [\u0001-/:-@[-^`{-\uffff] = \W -->
 		<h1>What we learned</h1>
 		<ul class="delayed-children persistent">
 			<li><code>^</code> negates a character class</li>
@@ -442,6 +439,29 @@
     return str.replace(/&lt;[^>]+>/g, '');
 }</code></pre>
 		<p>Warning: Will fail in edge cases</p>
+	</section>
+
+	<section class="slide" data-type="Challenge" data-duration="1" data-video="munchkin.mp4">
+		<h1>Credit card numbers</h1>
+		<p>
+			<code>4060 1234 5678 9000</code>
+			<code>4060-1234-5678-3457</code>
+			<code>1230123456789123</code>
+			<code>4.060/123456-78 90-00</code>
+			<strong class="not">not</strong>
+			<code>hello</code>
+			<code>4060</code>
+			<code>12345678901234567890</code>
+		</p>
+	</section>
+
+	<section class="narrow slide" data-type="Solution">
+		<h1>Credit card numbers</h1>
+		<pre><code class="language-javascript">// Never do this!
+/\d{16}/</code></pre>
+		<pre class="delayed persistent"><code class="language-javascript">// Limited grouping + allows 19 digit numbers
+/(\d{4}.?){3}\d{4}/</code></pre>
+		<pre class="delayed persistent"><code class="language-javascript">/(\d\D*){16}/</code></pre>
 	</section>
 
 	<section class="regex-test slide" data-pattern="\p{Script=Cyrillic}+" data-test="Веру Лиа" data-flags="gu" title="Unicode Property Escapes">
@@ -504,7 +524,7 @@
 		</ul>
 	</section>
 
-	<article class=" slide language-js">
+	<!-- <article class=" slide language-js">
 		<h1>Before <code>element.classList</code>…</h1>
 		<pre><code>function removeClass(element, name) {
 	var regex = RegExp("\\b" + name + "\\b", "g");
@@ -512,7 +532,7 @@
 }</code></pre>
 		<pre class="delayed"><code>element.className = "item-toolbar";
 removeClass(element, "toolbar"); // "item-"</code></pre>
-	</article>
+	</article> -->
 
 	<section class="regex-test slide" data-pattern="a(b)" data-test="ab" title="Lookahead">
 		<h1>What we learned</h1>
@@ -601,6 +621,27 @@ removeClass(element, "toolbar"); // "item-"</code></pre>
 	<header class="slide" id="best-practices">
 		<h1>Best Practices</h1>
 	</header>
+
+	<section class="image slide" id="precise-impractical" data-source="regular-expressions.info/email.html">
+		<code>(?:[a-z0-9!#$%&amp;'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&amp;'*+/=?^_`{|}~-]+)*|"(?:[\x01-\x08\x0b\x0c\x0e-\x1f\x21\x23-\x5b\x5d-\x7f]|\\[\x01-\x09\x0b\x0c\x0e-\x7f])*")@(?:(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?|\[(?:(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.){3}(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?|[a-z0-9-]*[a-z0-9]:(?:[\x01-\x08\x0b\x0c\x0e-\x1f\x21-\x5a\x53-\x7f]|\\[\x01-\x09\x0b\x0c\x0e-\x7f])+)\])</code>
+		<h1 class="caption">Practicality > Precision</h1>
+	</section>
+
+	<section class="narrow slide" style="min-width: 20em">
+		<h1>Email</h1>
+		<pre><code class="language-javascript">// Don’t ever do this
+/^[a-z]+@[a-z]+\.[a-z]{2,5}/</code></pre>
+		<p class="match-examples delayed persistent">
+			<code>lea@verou.me</code>
+			<code>leaverou@mit.edu</code>
+			<code>foo@google.co.jp</code>
+			<code>Лиа@Веру.рф</code>
+			<code>λία@βέρου.ελ</code>
+			<code>me@lea.moscow</code>
+		</p>
+		<pre class="delayed persistent"><code class="language-javascript">// Yes, it’s ok to be lax!
+/^\S+@\S+\.\S+/</code></pre>
+	</section>
 
 	<section class="top-heavy image slide" style="background-image: url(img/pregnancy-test.jpg);" data-source="http://www.flickr.com/photos/mandaloo/4369363690/">
 		<h1>False positives vs false negatives</h1>

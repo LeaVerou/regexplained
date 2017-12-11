@@ -100,61 +100,61 @@ $$('.slide[data-type="Challenge"]').forEach(function(slide) {
 				video.play();
 				timer.classList.add('running');
 
-				// var search = new TwitterSearch('#regexplained', details);
-                //
-				// search.onload = function(data) {
-				// 	// Process data
-				// 	var results = data.statuses,
-				// 	    list = $('div', search.details),
-				// 	    summary = $('summary', search.details);
-                //
-				// 	// Fix relative dates for older tweets
-				// 	$$('time', list).forEach(function(time) {
-				// 		time.textContent = TwitterSearch.dateOffset(time.getAttribute('datetime'));
-				// 	});
-                //
-				// 	TwitterSearch.maxId = Math.max(data.search_metadata.max_id, TwitterSearch.maxId);
-                //
-				// 	for (var i=results.length, tweet; tweet = results[--i];) {
-				// 		// Don’t add the same tweets twice
-				// 		// Twitter Search API is fucked
-				// 		var datetime = new Date(tweet.created_at);
-				// 		var offset = new Date() - datetime;
-                //
-				// 		if(!$('#t' + tweet.id, list) && offset < 1000 * 60 * 20) {
-				// 			// Is not already in the list and has been posted in the last 20 minutes
-				// 			var username = tweet.user.screen_name;
-				// 			var datetimeISO = (datetime).toISOString();
-				// 			var id = tweet.id;
-                //
-				// 			$.create('article', {
-				// 				id: 't' + tweet.id,
-				// 				innerHTML: `
-				// 					<img src="${tweet.user.profile_image_url}" />
-				// 					<h1>
-				// 						<a href="http://twitter.com/${username}" target="_blank">@${username}</a>
-				// 						<a href="http://twitter.com/${username}/status/${id}" target="_blank">
-				// 							<time datetime="${datetimeISO}">${TwitterSearch.dateOffset(datetimeISO)}</time>
-				// 						</a>
-				// 					</h1>
-				// 					<p>${tweet.text.replace(/[@#]regexplained/g, '')}</p>
-				// 				`,
-				// 				start: list
-				// 			});
-				// 		}
-				// 	}
-                //
-				// 	summary.innerHTML = $$("article", list).length + ' tweets';
-                //
-				// 	// Schedule next fetch
-				// 	if (running) {
-				// 		setTimeout(function() {
-				// 			search.send();
-				// 		}, 5000);
-				// 	}
-				// }
-                //
-				// search.send();
+				var search = new TwitterSearch('#regexplained', details);
+
+				search.onload = function(data) {
+					// Process data
+					var results = data.statuses,
+					    list = $('div', search.details),
+					    summary = $('summary', search.details);
+
+					// Fix relative dates for older tweets
+					$$('time', list).forEach(function(time) {
+						time.textContent = TwitterSearch.dateOffset(time.getAttribute('datetime'));
+					});
+
+					TwitterSearch.maxId = Math.max(data.search_metadata.max_id, TwitterSearch.maxId);
+
+					for (var i=results.length, tweet; tweet = results[--i];) {
+						// Don’t add the same tweets twice
+						// Twitter Search API is fucked
+						var datetime = new Date(tweet.created_at);
+						var offset = new Date() - datetime;
+
+						if(!$('#t' + tweet.id, list) && offset < 1000 * 60 * 20) {
+							// Is not already in the list and has been posted in the last 20 minutes
+							var username = tweet.user.screen_name;
+							var datetimeISO = (datetime).toISOString();
+							var id = tweet.id;
+
+							$.create('article', {
+								id: 't' + tweet.id,
+								innerHTML: `
+									<img src="${tweet.user.profile_image_url}" />
+									<h1>
+										<a href="http://twitter.com/${username}" target="_blank">@${username}</a>
+										<a href="http://twitter.com/${username}/status/${id}" target="_blank">
+											<time datetime="${datetimeISO}">${TwitterSearch.dateOffset(datetimeISO)}</time>
+										</a>
+									</h1>
+									<p>${tweet.text.replace(/[@#]regexplained/g, '')}</p>
+								`,
+								start: list
+							});
+						}
+					}
+
+					summary.innerHTML = $$("article", list).length + ' tweets';
+
+					// Schedule next fetch
+					if (running) {
+						setTimeout(function() {
+							search.send();
+						}, 5000);
+					}
+				}
+
+				search.send();
 
 				setTimeout(function(){
 					// Time’s up!
