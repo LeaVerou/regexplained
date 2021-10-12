@@ -141,8 +141,10 @@ var _ = self.RegExpTester = $.Class({
 	test: function() {
 		if(!this.input.value) { return; }
 
+		var flagsPlusD = this.flags.replace('d', '') + 'd';
+
 		try {
-			var pattern = this.pattern = RegExp(this.input.value, this.flags);
+			var pattern = this.pattern = RegExp(this.input.value, flagsPlusD);
 			this.input.parentNode.parentNode.classList.remove('invalid');
 		}
 		catch(e) {
@@ -222,10 +224,15 @@ var _ = self.RegExpTester = $.Class({
 			var match = this.matches[index];
 
 			if(match) {
-				var before = this.testStr.substr(0, match.index + 1),
-					lineBreaks = (before.match(/\n|\r/g) || []).length;
+				var preMatch = this.testStr.substring(0, match.index),
+					preMatchLineBreaks = (preMatch.match(/[\n\r]/g) || []).length,
+					inMatchLineBreaks = (match.subpatterns[0].match(/[\n\r]/g) || []).length;
 
-				this.positionIndicator(this.matchIndicator, match.index + lineBreaks, match.length);
+				this.positionIndicator(
+					this.matchIndicator,
+					match.index + preMatchLineBreaks,
+					match.length + inMatchLineBreaks
+				);
 				this.matchIndicator.style.display = '';
 
 				this.subpatterns = match.subpatterns.slice() || []; // slice for cloning
@@ -243,22 +250,24 @@ var _ = self.RegExpTester = $.Class({
 			this.submatchIndicator.style.display = 'none';
 		}
 		else {
-			var match = this.matches[this.matches.index],
-			    subpattern = this.subpatterns[index];
+			var match = this.matches[this.matches.index];
 
 			if (match) {
-				var strIndex = match.subpatterns[0].indexOf(subpattern);
+				var subpatternIndices = match.subpatterns.indices[index],
+					subpatternStart = subpatternIndices ? subpatternIndices[0] : match.subpatterns.index;
 
-				if (strIndex === -1) {
-					strIndex = match.subpatterns.input.indexOf(subpattern, match.index) - 1;
-				}
+				var preMatch = this.testStr.substring(0, match.index),
+					preMatchLineBreaks = (preMatch.match(/[\n\r]/g) || []).length,
+					matchUntilSubpattern = match.subpatterns[0].substring(0, subpatternStart - match.index),
+					inMatchPreSubpatternLineBreaks = (matchUntilSubpattern.match(/[\n\r]/g) || []).length,
+					subpatternMatch = match.subpatterns[index] || '',
+					inSubpatternMatchLineBreaks = (subpatternMatch.match(/[\n\r]/g) || []).length;
 
-				var offset = match.index + strIndex;
-
-				var before = this.testStr.substr(0, offset + 1),
-					lineBreaks = (before.match(/\n|\r/g) || []).length;
-
-				this.positionIndicator(this.submatchIndicator, offset + lineBreaks, subpattern.length);
+				this.positionIndicator(
+					this.submatchIndicator,
+					subpatternStart + preMatchLineBreaks + inMatchPreSubpatternLineBreaks,
+					subpatternMatch.length + inSubpatternMatchLineBreaks
+				);
 				this.submatchIndicator.style.display = '';
 			}
 			else {
